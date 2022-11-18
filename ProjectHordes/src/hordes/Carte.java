@@ -170,7 +170,7 @@ public class Carte {
         } else if(town){
             System.out.println("Il est inutile de fouiller la ville...");
         } else{
-            System.out.println("Cette case a déjà été fouillée");
+            System.out.println("Cette case a déjà été fouillée.");
         }
         
     }

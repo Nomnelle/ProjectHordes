@@ -18,6 +18,7 @@ public class Main {
         
         carte.etreFouillee(0, 0);
         caseTest.decrireCase();
+        carte.etreFouillee(0, 0);
         
         carte.etreFouillee(12, 12);
         carte.etreFouillee(12, 13);
