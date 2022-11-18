@@ -4,6 +4,8 @@
  */
 package hordes;
 
+import java.util.Random;
+
 /**
  *
  * @author nomnelle

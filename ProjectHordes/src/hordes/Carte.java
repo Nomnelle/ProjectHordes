@@ -99,12 +99,18 @@ public class Carte {
     public int calMetal(){
         Random ra = new Random();
         int nbMetal;
+        int compteur = this.compterFouille();
         
-        if(this.compterFouille() == 1){
+        if((compteur == 1)||(this.totBoissEner==0)){
             nbMetal = this.totMetal;
         } else {
-            nbMetal = ra.nextInt(this.totMetal) + 1;
-            this.totMetal -= nbMetal;
+            double result = ra.nextGaussian()+(this.totMetal/compteur);
+            if(result<0){
+                nbMetal = 0;
+            }else{
+                nbMetal = (int) Math.round(result);
+                this.totMetal -= nbMetal;
+            }
         }
         
         return nbMetal; 
@@ -113,12 +119,18 @@ public class Carte {
     public int calBois(){
         Random ra = new Random();
         int nbBois;
+        int compteur = this.compterFouille();
         
-        if(this.compterFouille() == 1){
+        if((compteur == 1)||(this.totBois==0)){
             nbBois = this.totBois;
         } else {
-            nbBois = ra.nextInt(this.totBois) + 1;
-            this.totBois -= nbBois;
+            double result = ra.nextGaussian()+(this.totBois/compteur);
+            if(result<0){
+                nbBois = 0;
+            }else{
+                nbBois = (int) Math.round(result);
+                this.totBois -= nbBois;
+            }
         }
         
         return nbBois; 
@@ -127,12 +139,18 @@ public class Carte {
     public int calcBoissEner(){
         Random ra = new Random();
         int nbBoissEner;
+        int compteur = this.compterFouille();
         
-        if(this.compterFouille() == 1){
+        if((compteur == 1)||(this.totBoissEner==0)){
             nbBoissEner = this.totBoissEner;
         } else {
-            nbBoissEner = ra.nextInt(this.totBoissEner) + 1;
-            this.totBoissEner-= nbBoissEner;
+            double result = ra.nextGaussian()+(this.totBoissEner/compteur);
+            if(result<0){
+                nbBoissEner = 0;
+            }else{
+                nbBoissEner = (int) Math.round(result);
+                this.totBoissEner -= nbBoissEner;
+            }
         }
         
         return nbBoissEner; 
