@@ -10,4 +10,84 @@ package hordes;
  */
 public class Case {
     
+    private int x; //position de la case en x
+    private int y; //position de la case en y
+    
+    private boolean fouille; //faux si la case n'a pas été fouillée, vrai sinon
+    
+    private int bois; //nombre de planches de bois sur la case
+    private int metal; //nombre de morceaux de métal sur la case
+    private int boissonEnergisante; //nombre de boissons energisantes sur la case
+    private int zombie; //nombres de zombies sur la case
+    
+    public Case(int x_map, int y_map) {
+        this.x = x_map;
+        this.y = y_map;
+        
+        this.fouille = false;
+    }
+    
+    public int getX(){
+        return this.x;
+    }
+    
+    public int getY(){
+        return this.y;
+    }
+    
+    public boolean getFouille(){
+        return this.fouille;
+    }
+    
+    public int getBois(){
+        return this.bois;
+    }
+    
+    public int getMetal(){
+        return this.metal;
+    }
+    
+    public int getBoissEner(){
+        return this.boissonEnergisante;
+    }
+    
+    public int getZombie(){
+        return this.zombie;
+    }
+    
+    public void setFouille(){
+        this.fouille = !(this.fouille);
+    }
+    
+    public void setBois(int i){
+        this.bois = i;
+    }
+    
+    public void setMetal(int i){
+        this.metal = i;
+    }
+    
+    public void setBoissEner(int i){
+        this.boissonEnergisante = i;
+    }
+    
+    public void setZombie(int i){
+        this.zombie = i;
+    }
+    
+    public void decrireCase(){
+        
+        if(this.fouille){
+            String strMet, strBois, strBE;
+
+            strMet = String.format("%d", this.metal);
+            strBois = String.format("%d", this.bois);
+            strBE = String.format("%d", this.boissonEnergisante);
+
+            System.out.println("Il y a "+strMet+" morceaux de métal, "+strBois+" planches de bois et "+strBE+" boissons énergisantes sur cette case.");
+        }else{
+            System.out.println("Cette case n'a pas encore été fouillée.");
+        }
+    }
+    
 }
