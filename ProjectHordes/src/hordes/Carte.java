@@ -9,5 +9,5 @@ package hordes;
  * @author nomnelle
  */
 public class Carte {
-    
+    //bonjour
 }
