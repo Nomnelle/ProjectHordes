@@ -17,15 +17,15 @@ public class Joueur {
     private int pv;                               // Points de vie, de 0 à 100
     private String position[][];
 
-    public Joueur() {                              // A vérifier, éléments de retour ? Qu'est ce que je manipule exactement xD ?
+    public Joueur() {                              // A vérifier, éléments de retour ? Qu'est ce que je manipule exactement xD ? c'est un constructeur, jamais de type de retour
 
-        // this.numJoueur =                       // Comment lier à classe Carte ?
+        // this.numJoueur =                       // Comment lier à classe Carte ? ça se lit tout seul, l'id du joueur sera l'indice dans le tableau tabjoueur. là, tu vas mettre en entrée int n, et String nom, ils seront rentrés comme paramètre dans ton constructeur
         this.SacADos = new String[10];
         this.pv = 100;
         this.pa = 6;
-        // this.position =                        // Position au début de la partie ?
+        // this.position =                        // Position au début de la partie ? Dans la ville je pense, donc x=12 et y=12
 
-        // Comme pour la carte, préparer créations joueur ici via appel de fonction création ?
+        // Comme pour la carte, préparer créations joueur ici via appel de fonction création ? Nope, je ne pense pas. ça se fera dans le main, après qu'on ait demandé combien de joueurs sont crées, on demande autant de fois qu'il y a de joueur un nom, et on appelle le constructeur 
     }
 
     //Getter
@@ -54,8 +54,8 @@ public class Joueur {
         this.numJoueur = i;
     }
 
-    //  public void setSacADos() {                          // Je ne sais pas ce que je manipule, besoin questions
-    //      this.SacADos = ;
+    //  public void setSacADos() {                          Un tableau de taille 10, soit ["Planche", "Métal", "", "", "", "", "", "", "", ""]
+    //      this.SacADos = ;                                ça n'a probablement pas de sens de faire des setters pour le sac à dos, enlever/rajouter élément ds sac suffira
     // }
     public void setpv(int i) {
         this.pv = i;
@@ -66,8 +66,8 @@ public class Joueur {
     }
 
     //  public void setposition(String [i][j]){
-    //      this.position= String[i][j];                    // Même problème que sac à dos
-    // }
+    //      this.position= String[i][j];                    // Même problème que sac à dos Alors, surtout pas un tableau de deux dimension, si non tu vas avoir l'équivalent d'une feuille excel à remplir, ça n'a pas de sens 
+    // }                                                    //puis la position, c'est des int ; tu peux les coder comme j'ai fait pour les cases, avec un int x pour donner la position en absisse, et un int y pour donner la position en ordonnée
     // public int PerteDePA(){                             // Fonctions de gain et perte de PA
     // }
     // public int GainDePA (){

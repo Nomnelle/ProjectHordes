@@ -18,7 +18,7 @@ public class Addiction {
         this.TestAddiction = false;
     }                                  // Initialisation du compteur de tour avant perte de PV d'addiction; Joueur non addict tant que pas de boisson prise
 
-    //Getter                           // Pas forcément utiles, right ?
+    //Getter                           // Pas forcément utiles, right ? Je pense que si pour le moment, on verra en codant davantages
     public int getCompteurDeTour() {
         return this.CompteurDeTour;
     }
