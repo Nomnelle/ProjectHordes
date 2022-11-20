@@ -15,7 +15,8 @@ public class Joueur {
     private String[] SacADos;
     private int pa;                               // Point d'actions, 6 au début, max 10, récupère 4 chaque tours
     private int pv;                               // Points de vie, de 0 à 100
-    private String position[][];
+    private int score;                            //score du joueur, plus élevé = mort en premier, plus bas = mort en dernier
+    private String position[][];   
 
     public Joueur() {                              // A vérifier, éléments de retour ? Qu'est ce que je manipule exactement xD ? c'est un constructeur, jamais de type de retour
 
@@ -23,6 +24,8 @@ public class Joueur {
         this.SacADos = new String[10];
         this.pv = 100;
         this.pa = 6;
+        this.score = 0;
+        
         // this.position =                        // Position au début de la partie ? Dans la ville je pense, donc x=12 et y=12
 
         // Comme pour la carte, préparer créations joueur ici via appel de fonction création ? Nope, je ne pense pas. ça se fera dans le main, après qu'on ait demandé combien de joueurs sont crées, on demande autant de fois qu'il y a de joueur un nom, et on appelle le constructeur 
@@ -44,6 +47,10 @@ public class Joueur {
     public int getpa() {
         return this.pa;
     }
+    
+    public int getScore(){
+        return this.score;
+    }
 
     public String[][] Position() {
         return this.position;
@@ -63,6 +70,10 @@ public class Joueur {
 
     public void setpa(int i) {
         this.pa = i;
+    }
+    
+    public void setScore(int i){
+        this.score = i;
     }
 
     //  public void setposition(String [i][j]){
