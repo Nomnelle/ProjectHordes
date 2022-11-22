@@ -56,7 +56,7 @@ public class Case {
     }
     
     public void setFouille(){
-        this.fouille = !(this.fouille);
+        this.fouille = true;
     }
     
     public void setBois(int i){
@@ -78,13 +78,26 @@ public class Case {
     public void decrireCase(){
         
         if(this.fouille){
-            String strMet, strBois, strBE;
+            String strMet, strBois, strBE, strZomb;
 
             strMet = String.format("%d", this.metal);
             strBois = String.format("%d", this.bois);
             strBE = String.format("%d", this.boissonEnergisante);
+            strZomb = String.format("%d", this.zombie);
 
             System.out.println("Il y a "+strMet+" morceaux de métal, "+strBois+" planches de bois et "+strBE+" boissons énergisantes sur cette case.");
+            
+            switch (this.zombie) {
+                case 0:
+                    System.out.println("Il n'y a pas de danger.");
+                    break;
+                case 1:
+                    System.out.println("Vous avez de la compagnie ! Un zombie vous attaque !");
+                    break;
+                default:
+                    System.out.println("Les bruits que vous avez fait en fouillant ne sont pas passés inaperçus... Une horde de "+strZomb+" zombies vous attaquent !");
+                    break;
+            }
         }else{
             System.out.println("Cette case n'a pas encore été fouillée.");
         }

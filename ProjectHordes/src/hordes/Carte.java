@@ -145,6 +145,33 @@ public class Carte {
         return nbBoissEner; 
     }
     
+    public int calcZombie(){
+        
+        int nbZombie;
+        
+        double stat = Math.random();
+        
+        if(stat < 0.3){
+            nbZombie = 0;
+        }else if(stat<0.4){
+            nbZombie = 1;
+        }else if(stat<0.5){
+            nbZombie = 2;
+        }else if(stat<0.6){
+            nbZombie=3;
+        }else if(stat<0.7){
+            nbZombie=4;
+        }else if(stat<0.8){
+            nbZombie=5;
+        }else if(stat<0.9){
+            nbZombie=6;
+        }else{
+            nbZombie=7;
+        }
+        
+        return nbZombie;
+        
+    }
     
     public void etreFouillee(int x, int y){
         
@@ -155,6 +182,7 @@ public class Carte {
             this.map[x][y].setMetal(this.calMetal());
             this.map[x][y].setBois(this.calBois());
             this.map[x][y].setBoissEner(this.calcBoissEner());
+            this.map[x][y].setZombie(this.calcZombie());
             this.map[x][y].setFouille();
         } else if(town){
             System.out.println("Il est inutile de fouiller la ville...");
