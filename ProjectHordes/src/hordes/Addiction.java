@@ -18,16 +18,25 @@ public class Addiction {
         this.TestAddiction = false;
     }                                  // Initialisation du compteur de tour avant perte de PV d'addiction; Joueur non addict tant que pas de boisson prise
 
-    //Getter                           // Pas forcément utiles, right ? Je pense que si pour le moment, on verra en codant davantages
+    //Getter                           
     public int getCompteurDeTour() {
         return this.CompteurDeTour;
+    }
+    
+    public boolean getTestAddiction () {
+        return this.TestAddiction;
     }
 
     //Setter
     public void setCompteurDeTour(int i) {
         this.CompteurDeTour = i;
     }
+    
+    public void setTestAddiction (boolean Test) {
+        this.TestAddiction = true;
+    }
 
+    
     //public void Addiction(){        // Fonction addiction
     // Compteur de 3 à 0, décrémenté si booléen v ou f (à def), si arrive à 0, perte de PV
     //}
