@@ -15,6 +15,32 @@ public class Ville extends Case{
     private boolean porteOuverte;
     private Chantier[] tabChantier;
     
+    //Getter
+    public int getNbZombieDefendable() {
+        return this.nbZombieDefendable;
+    }
+    
+    public int getNourriture() {
+        return this.nourriture;
+    }    
+    
+    public boolean getPorteOuverte() {  
+        return this.porteOuverte;
+    }  
+    
+    //Setter
+    public void setNbZombieDefendable(int i){
+        this.nbZombieDefendable = i;
+    }
+    
+    public void setNourriture(int i){
+        this.nourriture = i;
+    }
+    
+    public void setPorteOuverte(boolean porteOuverte){
+        this.porteOuverte = true;
+    }
+    
     public Ville(int x_map, int y_map) {
         super(x_map, y_map);
         
@@ -33,4 +59,9 @@ public class Ville extends Case{
         tabChantier = new Chantier[7];
     }
     
-}
+    public void tuerJoueur(){
+        if(this.n)
+            
+        }
+    }
+

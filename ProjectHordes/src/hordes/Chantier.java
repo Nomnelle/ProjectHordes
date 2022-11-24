@@ -10,4 +10,15 @@ package hordes;
  */
 public class Chantier {
     
+    private boolean chantierFini;
+    
+    //getter
+    public boolean getChantierFini(){
+        return this.chantierFini;
+    }
+    
+    //setter
+    public void setChantierFini(boolean chantierFini){
+        this.chantierFini = false;
+    }
 }
