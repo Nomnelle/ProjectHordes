@@ -4,6 +4,8 @@
  */
 package hordes;
 
+import java.util.Random;
+
 /**
  *
  * @author nomnelle
@@ -56,12 +58,23 @@ public class Ville extends Case{
         this.nbZombieDefendable = 20;
         this.setZombie(0);
         
+        this.minimumZombie = 10;
+        
         tabChantier = new Chantier[7];
     }
     
-    public void tuerJoueur(){
-        if(this.n)
-            
-        }
+    private int minimumZombie;
+    
+    
+    
+    public int genererZombie(){
+        Random ra = new Random();
+        int nbZombie = this.minimumZombie + ra.nextInt(11);
+        this.minimumZombie+=10;
+        return nbZombie;
+                
+    }
+    
+    
     }
 

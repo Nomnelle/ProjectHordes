@@ -10,6 +10,21 @@ package hordes;
  */
 public class Chantier {
     
+    private String nomChantier;
+    
+    public void setPa(int pa){
+        this.pa = pa;
+    }
+    
+    public Chantier (String nomChantier, int pa){
+        this.nomChantier = nomChantier;
+        this.pa = pa;
+        this.chantierFini = true;
+    }
+    
+    
+   
+    
     private boolean chantierFini;
     
     //getter
@@ -19,6 +34,6 @@ public class Chantier {
     
     //setter
     public void setChantierFini(boolean chantierFini){
-        this.chantierFini = false;
+        this.chantierFini = true;
     }
 }
