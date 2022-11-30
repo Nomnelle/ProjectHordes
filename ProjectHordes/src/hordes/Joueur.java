@@ -92,32 +92,40 @@ public class Joueur {
         this.positiony = y;
     }
 
-    public void DeplacementHautJoueur() {
-        this.setpositiony(this.positiony - 1);
+    public void DeplacementHaut() {
         if (this.positiony == 0) {                 // Limites de cartes
             System.out.println("Avancer plus serait dangereux, vous devriez revenir sur vos pas");
+        }else{
+            this.setpositiony(this.positiony - 1);
+            this.pa -=1;
         }
     }
 
-    public void DeplacementBasJoueur() {
-        this.setpositiony(this.positiony + 1);
+    public void DeplacementBas() {
         if (this.positiony == 24) {
             System.out.println("Avancer plus loin serait risqué, vous feriez mieux de choisir une autre direction.");
+        }else{
+            this.setpositiony(this.positiony + 1);
+            this.pa -=1;
         }
     }
 
-    public void DeplacementDroitJoueur() {
-        this.setpositionx(this.positionx + 1);
+    public void DeplacementDroit() {
         if (this.positionx == 24) {
             System.out.println("Nous vous déconseillons d'aller plus loin, allez ailleurs.");
+        }else{
+            this.setpositionx(this.positionx + 1);
+            this.pa -=1;
         }
     }
 
-    public void DeplacementGaucheJoueur() {
-        this.setpositionx(this.positionx - 1);
+    public void DeplacementGauche() {
         if (this.positionx == 0) {
             System.out.println("N'allez pas plus loin, les contrées avoisinantes sont trop inquiétantes.");
+        }else{
+            this.setpositionx(this.positionx - 1);
+            this.pa -=1;
         }
     }
-
+    
 }
