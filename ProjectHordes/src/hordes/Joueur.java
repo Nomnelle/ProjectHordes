@@ -71,45 +71,53 @@ public class Joueur {
     }
 
     public void setpa(int i) {
-        this.pa = i;
+        if (i > 10) {
+            this.pa = 10;
+        } else if (i < 0) {
+            this.pa = 0;
+        } else {
+            this.pa = i;
+        }
     }
 
     public void setScore(int i) {
         this.score = i;
     }
 
-    public void setpositionx(int x) {
-        this.positionx = x;                     
+    private void setpositionx(int x) {
+        this.positionx = x;
     }
 
-    public void setpositiony(int y) {
+    private void setpositiony(int y) {
         this.positiony = y;
     }
 
-    
-    // Fonctions de gain et perte de PA
-    public int PerteDePA(){
-        // dire que le minimum de PA = 0
-        // Si le joueur s'est déplacé -1
-        // Si le joueur a fouillé -1
-        // Si le joueur a tué un zombie -1 //  Je ne sais pas le rédiger sans les info de la fonction de dessous niveau syntaxe
+    public void DeplacementHautJoueur() {
+        this.setpositiony(this.positiony - 1);
+        if (this.positiony == 0) {                 // Limites de cartes
+            System.out.println("Avancer plus serait dangereux, vous devriez revenir sur vos pas");
+        }
     }
-     
 
-     public int GainDePA (){
-         if (nomJoueur.PA = 10) {
-             System.exit(0); // Sortir de la fonction si le joueur à déjà 10 PA; Dire que le maximum de PA = 10
-         }
-         int x = new Carte.getTour(); // Je ne sais pas faire venir un getteur
-         for (int i=0; i<20; i++) { // 20 symbolise le nombre de tour maximum de la partie; je ne savais pas trop quoi mettre pour finir la boucle
-             if i && x { // Si un tour est passé, donner 4 PA; comment remonter pour faire le test du haut après ?
-                 nomJoueur.PA = nomJoueur.Pa + 4; // Je ne sais pas comment attribuer les PA au joueur jouant précisément et comment limiter à 10 PA max; paramètre à mettre hors fonction de manière générale pour les PA?
-             }
-             // if pour savoir si le joueur a pris ou veut prendre une boisson et gain de PA en conséquence si le nombre de PA pas suppérieur à 10 (ou limité à 10)
-             // lien avec fonction addiction pour début de dépendance
-         }
+    public void DeplacementBasJoueur() {
+        this.setpositiony(this.positiony + 1);
+        if (this.positiony == 24) {
+            System.out.println("Avancer plus loin serait risqué, vous feriez mieux de choisir une autre direction.");
+        }
     }
+
+    public void DeplacementDroitJoueur() {
+        this.setpositionx(this.positionx + 1);
+        if (this.positionx == 24) {
+            System.out.println("Nous vous déconseillons d'aller plus loin, allez ailleurs.");
+        }
+    }
+
+    public void DeplacementGaucheJoueur() {
+        this.setpositionx(this.positionx - 1);
+        if (this.positionx == 0) {
+            System.out.println("N'allez pas plus loin, les contrées avoisinantes sont trop inquiétantes.");
+        }
+    }
+
 }
-
-
-// Completer plus tard avec info sur l'addiction
