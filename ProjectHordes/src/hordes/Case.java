@@ -10,8 +10,8 @@ package hordes;
  */
 public class Case {
     
-    private int x; //position de la case en x
-    private int y; //position de la case en y
+    private final int x; //position de la case en x
+    private final int y; //position de la case en y
     
     private boolean fouille; //faux si la case n'a pas été fouillée, vrai sinon
     

@@ -10,15 +10,15 @@ package hordes;
  */
 public class Joueur {
 
-    public String nomJoueur;
-    private int numJoueur;                        // Pour systeme de score dans Classe Carte
+    private final String nomJoueur;
+    private final int numJoueur;                        // Pour systeme de score dans Classe Carte
     private String[] SacADos;
     private int pa;                               // Point d'actions, 6 au début, max 10, récupère 4 chaque tours
     private int pv;                               // Points de vie, de 0 à 100, 100 = PV maximum
     private int score;                            // Score du joueur, plus élevé = mort en premier, plus bas = mort en dernier
     private int positionx, positiony;             // Position x et y du joueur
 
-    public void Joueur(int n, String nom) {       // Note pour Elodie : constructeur
+    public Joueur(int n, String nom) {
 
         this.nomJoueur = nom;
         this.numJoueur = n;
@@ -28,13 +28,17 @@ public class Joueur {
         this.score = 0;
 
         this.positionx = 12;
-        this.positiony = 12;                      // Position au début de la partie ? Dans la ville je pense, donc x=12 et y=12
+        this.positiony = 12;       
 
     }
 
     //Getter
     public int getnumJoueur() {
         return this.numJoueur;
+    }
+    
+    public String getnomJouer(){
+        return this.nomJoueur;
     }
 
     public String[] getSacADos() {
@@ -62,12 +66,12 @@ public class Joueur {
     }
 
     // Setter
-    public void setnumJoueur(int i) {
-        this.numJoueur = i;
-    }
-
     public void setpv(int i) {
         this.pv = i;
+        if(this.pv==0){
+            String strNom = String.format("%s", this.nomJoueur);
+            System.out.println(strNom+" a été tué!");
+        }
     }
 
     public void setpa(int i) {

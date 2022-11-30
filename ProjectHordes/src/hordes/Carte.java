@@ -12,8 +12,7 @@ import java.util.Random;
  */
 public class Carte {
     
-    private Case[][] map;
-    private Joueur[] tabJoueur;
+    private final Case[][] map;
     private int tour;
     
     private int totMetal;
@@ -22,7 +21,7 @@ public class Carte {
     
     int COTE = 25;
     
-    public Carte(int n){
+    public Carte(){
         this.map = new Case[COTE][COTE];
         this.tour = 1;
         
@@ -49,10 +48,6 @@ public class Carte {
         return this.map[x][y];
     }
     
-    public Joueur[] getJoueur(){
-        return this.tabJoueur;
-    }
-    
     public int getTour(){
         return this.tour;
     }
@@ -68,18 +63,6 @@ public class Carte {
                 if(this.map[i][j].getFouille() == false){
                    compteur += 1;
                 }
-            }
-        }
-        return compteur;
-    }
-    
-    private int compterNull(){
-        
-        int compteur=0; 
-        
-        for (Joueur tabJoueur1 : this.tabJoueur) {
-            if (tabJoueur1.getScore() == 0) {
-                compteur +=1;
             }
         }
         return compteur;
