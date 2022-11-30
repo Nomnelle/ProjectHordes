@@ -17,6 +17,18 @@ public class Ville extends Case{
     private boolean porteOuverte;
     private Chantier[] tabChantier;
     
+    private void initTabChantier(){
+        String[] nom = {"Mur d'enceinte", "Fils barbelés", "Fosses à Zombies","Mines","Porte blindées","Miradors","Abris anti-atomique"};
+        int[] pa = {10,20,30,30,40,50,60};
+        int[] nbZombieResiste = {20,30,50,50,100,200,500};
+        int[] nbPlanche = {20,20,50,10,50,75,100};
+        int[] nbMetal = {5,30,25,50,50,75,200};
+        for(int i=0;i<7;i++){
+            this.tabChantier[i]=new Chantier(nom[i],pa[i],nbZombieResiste[i],nbPlanche[i],nbMetal[i]);
+        }
+    }
+    
+    
     //Getter
     public int getNbZombieDefendable() {
         return this.nbZombieDefendable;
@@ -29,6 +41,10 @@ public class Ville extends Case{
     public boolean getPorteOuverte() {  
         return this.porteOuverte;
     }  
+    
+    public Chantier[] getTabChantier(){
+        return this.tabChantier;
+    }
     
     //Setter
     public void setNbZombieDefendable(int i){
