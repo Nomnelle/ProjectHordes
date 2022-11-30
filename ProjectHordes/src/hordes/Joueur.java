@@ -84,13 +84,40 @@ public class Joueur {
         this.score = i;
     }
 
-    public void setpositionx(int x) {
+    private void setpositionx(int x) {
         this.positionx = x;
     }
 
-    public void setpositiony(int y) {
+    private void setpositiony(int y) {
         this.positiony = y;
     }
-}
 
-// Completer plus tard avec info sur l'addiction
+    public void DeplacementHautJoueur() {
+        this.setpositiony(this.positiony - 1);
+        if (this.positiony == 0) {                 // Limites de cartes
+            System.out.println("Avancer plus serait dangereux, vous devriez revenir sur vos pas");
+        }
+    }
+
+    public void DeplacementBasJoueur() {
+        this.setpositiony(this.positiony + 1);
+        if (this.positiony == 24) {
+            System.out.println("Avancer plus loin serait risqué, vous feriez mieux de choisir une autre direction.");
+        }
+    }
+
+    public void DeplacementDroitJoueur() {
+        this.setpositionx(this.positionx + 1);
+        if (this.positionx == 24) {
+            System.out.println("Nous vous déconseillons d'aller plus loin, allez ailleurs.");
+        }
+    }
+
+    public void DeplacementGaucheJoueur() {
+        this.setpositionx(this.positionx - 1);
+        if (this.positionx == 0) {
+            System.out.println("N'allez pas plus loin, les contrées avoisinantes sont trop inquiétantes.");
+        }
+    }
+
+}
