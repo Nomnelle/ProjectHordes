@@ -28,7 +28,7 @@ public class Main {
 "| '--------------' || '--------------' || '--------------' || '--------------' || '--------------' || '--------------' |\n" +
 " '----------------'  '----------------'  '----------------'  '----------------'  '----------------'  '----------------'" );
         int nbJoueurs = 0;
-        while(nbJoueurs < 2 && nbJoueurs>20){
+        while(nbJoueurs < 2 || nbJoueurs>20){
             System.out.println("Veuillez entrer le nombre de joueurs :");
             nbJoueurs = sc.nextInt();
             if(nbJoueurs > 20){
@@ -49,7 +49,7 @@ public class Main {
         
         for(int i=0;i<nbJoueurs;i++){
             Scanner sc = new Scanner(System.in);
-            String strId = String.format("d", i);
+            String strId = String.format("%d", i);
             System.out.println("Joueur "+strId+", rentrez votre nom :");
             String nom = sc.nextLine();
             Joueur j = new Joueur(i, nom);
