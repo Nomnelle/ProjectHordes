@@ -13,9 +13,33 @@ import java.util.Random;
 public class Ville extends Case{
     
     private int nbZombieDefendable;
+    private int minimumZombie;
     private int nourriture;
-    private boolean porteOuverte;
+    private boolean porte;
     private Chantier[] tabChantier;
+    
+        public Ville(int x_map, int y_map) {
+        super(x_map, y_map);
+        
+        this.fouille = true;
+        this.metal = 0;
+        this.bois = 0;
+        this.boissonEnergisante = 0;
+        this.zombie = 0;
+        
+        this.nourriture = 50;
+        
+        this.porte = true;
+        
+        this.nbZombieDefendable = 20;
+        this.setZombie(0);
+        
+        this.minimumZombie = 10;
+        
+        tabChantier = new Chantier[7];
+        
+        this.initTabChantier();
+    }
     
     private void initTabChantier(){
         String[] nom = {"Mur d'enceinte", "Fils barbelés", "Fosses à Zombies","Mines","Porte blindées","Miradors","Abris anti-atomique"};
@@ -38,8 +62,8 @@ public class Ville extends Case{
         return this.nourriture;
     }    
     
-    public boolean getPorteOuverte() {  
-        return this.porteOuverte;
+    public boolean getPorte() {  
+        return this.porte;
     }  
     
     public Chantier[] getTabChantier(){
@@ -55,34 +79,10 @@ public class Ville extends Case{
         this.nourriture = i;
     }
     
-    public void setPorteOuverte(boolean porteOuverte){
-        this.porteOuverte = true;
+    public void setPorte(){
+        this.porte = !(this.porte);
     }
-    
-    public Ville(int x_map, int y_map) {
-        super(x_map, y_map);
         
-        this.setFouille();
-        this.setMetal(0);
-        this.setBois(0);
-        this.setBoissEner(0);
-        
-        this.nourriture = 50;
-        
-        this.porteOuverte = true;
-        
-        this.nbZombieDefendable = 20;
-        this.setZombie(0);
-        
-        this.minimumZombie = 10;
-        
-        tabChantier = new Chantier[7];
-    }
-    
-    private int minimumZombie;
-    
-    
-    
     public int genererZombie(){
         Random ra = new Random();
         int nbZombie = this.minimumZombie + ra.nextInt(11);
@@ -91,6 +91,5 @@ public class Ville extends Case{
                 
     }
     
-    
-    }
+}
 

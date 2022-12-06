@@ -45,6 +45,8 @@ public class Main {
     public static void jeu(int nbJoueurs) {
 
         Carte carte = new Carte();
+        Ville ville = (Ville) carte.getCase(12, 12); 
+        
         ArrayList<Joueur> listeJoueur = new ArrayList();
 
         for (int i = 0; i < nbJoueurs; i++) {
@@ -55,6 +57,30 @@ public class Main {
             Joueur j = new Joueur(i, nom);
             listeJoueur.add(j);
         }
+
+        
+        /*boolean game = true;
+        
+        while(game){
+            for(int i = 0;i<nbJoueurs;i++){
+                System.out.print("\033[H\033[2J");
+                String strNom = String.format("%s",listeJoueur.get(i).getnomJoueur());
+                System.out.println("C'est au tour de "+strNom+".");
+                for(int j=listeJoueur.get(i).getpa();j>0;j--){
+                    Scanner sc = new Scanner(System.in);
+                    System.out.println("Que souhaitez-vous faire ?");
+                    String action = sc.nextLine();
+                    
+                    switch(action){
+                        case "éteindre console":
+                            game = false;
+                        default:
+                            System.out.println("Cette action n'est pas possible dans le jeu. Veuillez réessayer");
+                    }
+                }
+                
+            }
+        }*/
 
     }
 

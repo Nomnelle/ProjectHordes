@@ -37,7 +37,7 @@ public class Joueur {
         return this.numJoueur;
     }
     
-    public String getnomJouer(){
+    public String getnomJoueur(){
         return this.nomJoueur;
     }
 

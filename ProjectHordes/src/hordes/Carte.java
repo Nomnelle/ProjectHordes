@@ -35,11 +35,7 @@ public class Carte {
     private void initialiseMap(){
         for(int i=0;i<COTE;i++){
             for(int j=0;j<COTE;j++){
-                if(i==12 && j==12){
-                   this.map[i][j] = new Ville(i,j);
-                } else{
-                    this.map[i][j] = new Case(i,j);
-                }
+                this.map[i][j] = new Case(i,j);
             }
         }
     }
@@ -51,6 +47,7 @@ public class Carte {
     public int getTour(){
         return this.tour;
     }
+
     
     public void setTour(int i){
         this.tour = i;

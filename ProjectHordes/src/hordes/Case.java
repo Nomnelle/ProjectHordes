@@ -10,19 +10,20 @@ package hordes;
  */
 public class Case {
     
-    private final int x; //position de la case en x
-    private final int y; //position de la case en y
+    protected final int x; //position de la case en x
+    protected final int y; //position de la case en y
     
-    private boolean fouille; //faux si la case n'a pas été fouillée, vrai sinon
+    protected boolean fouille; //faux si la case n'a pas été fouillée, vrai sinon
     
-    private int bois; //nombre de planches de bois sur la case
-    private int metal; //nombre de morceaux de métal sur la case
-    private int boissonEnergisante; //nombre de boissons energisantes sur la case
-    private int zombie; //nombres de zombies sur la case
+    protected int bois; //nombre de planches de bois sur la case
+    protected int metal; //nombre de morceaux de métal sur la case
+    protected int boissonEnergisante; //nombre de boissons energisantes sur la case
+    protected int zombie; //nombres de zombies sur la case
     
     public Case(int x_map, int y_map) {
         this.x = x_map;
         this.y = y_map;
+        this.zombie = calcZombie();
         
         this.fouille = false;
     }
@@ -78,29 +79,42 @@ public class Case {
     public void decrireCase(){
         
         if(this.fouille){
-            String strMet, strBois, strBE, strZomb;
+            String strMet, strBois, strBE;
 
             strMet = String.format("%d", this.metal);
             strBois = String.format("%d", this.bois);
             strBE = String.format("%d", this.boissonEnergisante);
-            strZomb = String.format("%d", this.zombie);
-
             System.out.println("Il y a "+strMet+" morceaux de métal, "+strBois+" planches de bois et "+strBE+" boissons énergisantes sur cette case.");
-            
-            switch (this.zombie) {
-                case 0:
-                    System.out.println("Il n'y a pas de danger.");
-                    break;
-                case 1:
-                    System.out.println("Vous avez de la compagnie ! Un zombie vous attaque !");
-                    break;
-                default:
-                    System.out.println("Les bruits que vous avez fait en fouillant ne sont pas passés inaperçus... Une horde de "+strZomb+" zombies vous attaquent !");
-                    break;
-            }
+
         }else{
             System.out.println("Cette case n'a pas encore été fouillée.");
         }
+    }
+    
+    private static int calcZombie(){
+        
+        int nbZombie;
+        
+        double stat = Math.random();
+        
+        if(stat < 0.3){
+            nbZombie = 0;
+        }else if(stat<0.4){
+            nbZombie = 1;
+        }else if(stat<0.5){
+            nbZombie = 2;
+        }else if(stat<0.6){
+            nbZombie=3;
+        }else if(stat<0.7){
+            nbZombie=4;
+        }else if(stat<0.8){
+            nbZombie=5;
+        }else if(stat<0.9){
+            nbZombie=6;
+        }else{
+            nbZombie=7;
+        } 
+        return nbZombie;  
     }
     
 }
