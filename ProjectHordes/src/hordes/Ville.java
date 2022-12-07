@@ -92,7 +92,7 @@ public class Ville extends Case{
     }
     
     public void evaluerActionVille(Joueur player, String action){
-        if((player.getpositionx()==this.x)&&(player.getpositiony()==this.y)){
+        if((player.getPositionx()==this.x)&&(player.getPositiony()==this.y)){
             switch(action){
                 case "actionner porte":
                     this.setPorte();
@@ -104,7 +104,7 @@ public class Ville extends Case{
                 case "boire":
                     if(!(player.getBu())){
                         player.setBu();
-                        player.setpa(player.getpa()+6);
+                        player.setPa(player.getPa()+6);
                     }else{
                         System.out.println("Vous n'avez plus besoin de boire pour aujourdj'hui.");
                     }

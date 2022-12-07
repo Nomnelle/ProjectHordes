@@ -37,11 +37,11 @@ public class Joueur {
     }
 
     //Getter
-    public int getnumJoueur() {
+    public int getNumJoueur() {
         return this.numJoueur;
     }
     
-    public String getnomJoueur(){
+    public String getNomJoueur(){
         return this.nomJoueur;
     }
 
@@ -49,11 +49,11 @@ public class Joueur {
         return this.SacADos;
     }
 
-    public int getpv() {
+    public int getPv() {
         return this.pv;
     }
 
-    public int getpa() {
+    public int getPa() {
         return this.pa;
     }
 
@@ -61,11 +61,11 @@ public class Joueur {
         return this.score;
     }
 
-    public int getpositionx() {
+    public int getPositionx() {
         return this.positionx;
     }
 
-    public int getpositiony() {
+    public int getPositiony() {
         return this.positiony;
     }
     
@@ -78,7 +78,7 @@ public class Joueur {
     }
 
     // Setter
-    public void setpv(int i) {
+    public void setPv(int i) {
         this.pv = i;
         if(this.pv==0){
             String strNom = String.format("%s", this.nomJoueur);
@@ -86,7 +86,7 @@ public class Joueur {
         }
     }
 
-    public void setpa(int i) {
+    public void setPa(int i) {
         if (i > 10) {
             this.pa = 10;
         } else if (i < 0) {
@@ -100,11 +100,11 @@ public class Joueur {
         this.score = i;
     }
 
-    private void setpositionx(int x) {
+    private void setPositionx(int x) {
         this.positionx = x;
     }
 
-    private void setpositiony(int y) {
+    private void setPositiony(int y) {
         this.positiony = y;
     }
     
@@ -116,38 +116,38 @@ public class Joueur {
         this.bu = !(this.bu);
     }
 
-    public void DeplacementHaut() {
+    public void deplacementHaut() {
         if (this.positiony == 0) {                 // Limites de cartes
             System.out.println("Avancer plus serait dangereux, vous devriez revenir sur vos pas");
         }else{
-            this.setpositiony(this.positiony - 1);
+            this.setPositiony(this.positiony - 1);
             this.pa -=1;
         }
     }
 
-    public void DeplacementBas() {
+    public void deplacementBas() {
         if (this.positiony == 24) {
             System.out.println("Avancer plus loin serait risqué, vous feriez mieux de choisir une autre direction.");
         }else{
-            this.setpositiony(this.positiony + 1);
+            this.setPositiony(this.positiony + 1);
             this.pa -=1;
         }
     }
 
-    public void DeplacementDroit() {
+    public void deplacementDroit() {
         if (this.positionx == 24) {
             System.out.println("Nous vous déconseillons d'aller plus loin, allez ailleurs.");
         }else{
-            this.setpositionx(this.positionx + 1);
+            this.setPositionx(this.positionx + 1);
             this.pa -=1;
         }
     }
 
-    public void DeplacementGauche() {
+    public void deplacementGauche() {
         if (this.positionx == 0) {
             System.out.println("N'allez pas plus loin, les contrées avoisinantes sont trop inquiétantes.");
         }else{
-            this.setpositionx(this.positionx - 1);
+            this.setPositionx(this.positionx - 1);
             this.pa -=1;
         }
     }

@@ -66,7 +66,7 @@ public class Main {
             for(int i = 0;i<nbJoueurs;i++){
                 joueur = listeJoueur.get(i);
                 System.out.print("\033[H\033[2J");
-                String strNom = String.format("%s",joueur.getnomJoueur());
+                String strNom = String.format("%s",joueur.getNomJoueur());
                 System.out.println("C'est au tour de "+strNom+".");
                 for(int j=5;j>0;j--){
                     Scanner sc = new Scanner(System.in);
@@ -85,7 +85,7 @@ public class Main {
                         case "aller à droite":
                             carte.evaluerDeplacement(joueur, ville, action);
                         case "fouiller":
-                            carte.etreFouillee(joueur.getpositionx(), joueur.getpositiony(), joueur);
+                            carte.etreFouillee(joueur.getPositionx(), joueur.getPositiony(), joueur);
                         default:
                             System.out.println("Cette action n'est pas possible dans le jeu. Veuillez réessayer");
                     }
@@ -96,14 +96,14 @@ public class Main {
 
     }
 
-    public static void Addiction(boolean TestAddiction, int Compteur) {
-        Compteur = 3;
-        while (Compteur != 0) {
-            if (TestAddiction == true) {         // Si joueur addicte, commencer à décrémenter
-                Compteur = Compteur - 1;
+    public static void addiction(boolean testAddiction, int compteur) {
+        compteur = 3;
+        while (compteur != 0) {
+            if (testAddiction == true) {         // Si joueur addicte, commencer à décrémenter
+                compteur = compteur - 1;
             }
         }
-        while (TestAddiction == false) {         // Si arrivé à 0, perte de PV jusque prise de boisson; Comment éviter boucle infinie ? Risque ici non ?
+        while (testAddiction == false) {         // Si arrivé à 0, perte de PV jusque prise de boisson; Comment éviter boucle infinie ? Risque ici non ?
             // rédiger perte de PV help
         }
     }
