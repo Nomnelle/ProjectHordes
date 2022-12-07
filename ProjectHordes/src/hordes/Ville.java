@@ -109,6 +109,11 @@ public class Ville extends Case{
                         System.out.println("Vous n'avez plus besoin de boire pour aujourd'hui.");
                     }
                 case "prendre objet":
+                    //terminer 
+                //deposer objets
+                //démarrer chantier 
+                //allouer des PA pour faire avancer le chantier 
+                //voir ce qu'il y a dans l'entrepot
                     
             }
         }

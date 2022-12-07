@@ -87,12 +87,34 @@ public class Main {
                             carte.evaluerDeplacement(joueur, ville, action);
                         case "fouiller":
                             carte.etreFouillee(joueur.getPositionx(), joueur.getPositiony(), joueur);
+                        //manger
+                        //boire à la gourde
+                        //boire boisson énergisante
+                        //tuer un zombie 
+                        //observer ce qu'il y a sur une case
+                        //communiquer ce qu'il a sur la case (Poire s'en charge)
+                        //rajouter les commandes de ce qui est vérifier dans la classe ville
+                        //permettre au joueur d'arrêter son tour
                         default:
                             System.out.println("Cette action n'est pas possible dans le jeu. Veuillez réessayer");
+                        
                     }
                 }
                 
             }
+            
+            //retirer les joueurs morts de l'arraylist
+            //les joueurs regagnent 4PA
+            //si y'a des addicts, avec le compteur à 0, ils perdent 5PV
+            //compteur de tour prend +1
+            
+            //lorsque le compteur est à 13
+            //les joueurs en dehors de la ville meurent 
+            //si la porte est ouverte ou si les défenses de la ville sont inférieures au nombre de zombie, attaque 
+            //si attaque, retirer les joueurs morts de l'arraylist 
+            //si il reste une personne, le jeu prends fin
+            //si le jeu est zncore en cours, les survivants regagnent
+            //les joueurs peuvent boire et manger 
         }
 
     }
