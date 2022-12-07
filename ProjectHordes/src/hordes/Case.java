@@ -76,7 +76,8 @@ public class Case {
         this.zombie = i;
     }
     
-    public void decrireCase(){
+    @Override
+    public String toString(){
         
         if(this.fouille){
             String strMet, strBois, strBE;
@@ -84,10 +85,10 @@ public class Case {
             strMet = String.format("%d", this.metal);
             strBois = String.format("%d", this.bois);
             strBE = String.format("%d", this.boissonEnergisante);
-            System.out.println("Il y a "+strMet+" morceaux de métal, "+strBois+" planches de bois et "+strBE+" boissons énergisantes sur cette case.");
+            return("Il y a "+strMet+" morceaux de métal, "+strBois+" planches de bois et "+strBE+" boissons énergisantes sur cette case.");
 
         }else{
-            System.out.println("Cette case n'a pas encore été fouillée.");
+            return("Cette case n'a pas encore été fouillée.");
         }
     }
     

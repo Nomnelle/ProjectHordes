@@ -59,14 +59,16 @@ public class Main {
         }
 
         
-        /*boolean game = true;
+        boolean game = true;
+        Joueur joueur;
         
         while(game){
             for(int i = 0;i<nbJoueurs;i++){
+                joueur = listeJoueur.get(i);
                 System.out.print("\033[H\033[2J");
-                String strNom = String.format("%s",listeJoueur.get(i).getnomJoueur());
+                String strNom = String.format("%s",joueur.getnomJoueur());
                 System.out.println("C'est au tour de "+strNom+".");
-                for(int j=listeJoueur.get(i).getpa();j>0;j--){
+                for(int j=5;j>0;j--){
                     Scanner sc = new Scanner(System.in);
                     System.out.println("Que souhaitez-vous faire ?");
                     String action = sc.nextLine();
@@ -74,13 +76,23 @@ public class Main {
                     switch(action){
                         case "éteindre console":
                             game = false;
+                        case "aller en haut":
+                            carte.evaluerDeplacement(joueur, ville, action);
+                        case "aller en bas":
+                            carte.evaluerDeplacement(joueur, ville, action);
+                        case "aller à gauche":
+                            carte.evaluerDeplacement(joueur, ville, action);
+                        case "aller à droite":
+                            carte.evaluerDeplacement(joueur, ville, action);
+                        case "fouiller":
+                            carte.etreFouillee(joueur.getpositionx(), joueur.getpositiony(), joueur);
                         default:
                             System.out.println("Cette action n'est pas possible dans le jeu. Veuillez réessayer");
                     }
                 }
                 
             }
-        }*/
+        }
 
     }
 

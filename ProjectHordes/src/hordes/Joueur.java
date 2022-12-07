@@ -17,6 +17,7 @@ public class Joueur {
     private int pv;                               // Points de vie, de 0 à 100, 100 = PV maximum
     private int score;                            // Score du joueur, plus élevé = mort en premier, plus bas = mort en dernier
     private int positionx, positiony;             // Position x et y du joueur
+    private boolean nourri, bu;
 
     public Joueur(int n, String nom) {
 
@@ -28,7 +29,10 @@ public class Joueur {
         this.score = 0;
 
         this.positionx = 12;
-        this.positiony = 12;       
+        this.positiony = 12;   
+        
+        this.nourri = false;
+        this.bu = false;
 
     }
 
@@ -64,6 +68,14 @@ public class Joueur {
     public int getpositiony() {
         return this.positiony;
     }
+    
+    public boolean getNourri(){
+        return this.nourri;
+    }
+    
+    public boolean getBu(){
+        return this.bu;
+    }
 
     // Setter
     public void setpv(int i) {
@@ -94,6 +106,14 @@ public class Joueur {
 
     private void setpositiony(int y) {
         this.positiony = y;
+    }
+    
+    public void setNourri(){
+        this.nourri = !(this.nourri);
+    }
+    
+    public void setBu(){
+        this.bu = !(this.bu);
     }
 
     public void DeplacementHaut() {

@@ -35,7 +35,11 @@ public class Carte {
     private void initialiseMap(){
         for(int i=0;i<COTE;i++){
             for(int j=0;j<COTE;j++){
-                this.map[i][j] = new Case(i,j);
+                if((j!=12)&&(i!=12)){
+                    this.map[i][j] = new Case(i,j);
+                }else{
+                    this.map[i][j] = (Ville) new Ville(i, j);
+                }
             }
         }
     }
@@ -125,35 +129,7 @@ public class Carte {
         return nbBoissEner; 
     }
     
-    public int calcZombie(){
-        
-        int nbZombie;
-        
-        double stat = Math.random();
-        
-        if(stat < 0.3){
-            nbZombie = 0;
-        }else if(stat<0.4){
-            nbZombie = 1;
-        }else if(stat<0.5){
-            nbZombie = 2;
-        }else if(stat<0.6){
-            nbZombie=3;
-        }else if(stat<0.7){
-            nbZombie=4;
-        }else if(stat<0.8){
-            nbZombie=5;
-        }else if(stat<0.9){
-            nbZombie=6;
-        }else{
-            nbZombie=7;
-        }
-        
-        return nbZombie;
-        
-    }
-    
-    public void etreFouillee(int x, int y){
+    public void etreFouillee(int x, int y, Joueur joueur){
         
         boolean town = this.map[x][y] instanceof Ville;
         boolean dejaFouille = this.map[x][y].getFouille();
@@ -162,8 +138,8 @@ public class Carte {
             this.map[x][y].setMetal(this.calMetal());
             this.map[x][y].setBois(this.calBois());
             this.map[x][y].setBoissEner(this.calcBoissEner());
-            this.map[x][y].setZombie(this.calcZombie());
             this.map[x][y].setFouille();
+            joueur.setpa(joueur.getpa()-1);
         } else if(town){
             System.out.println("Il est inutile de fouiller la ville...");
         } else{
@@ -171,4 +147,27 @@ public class Carte {
         }
         
     }
+    
+    public void evaluerDeplacement(Joueur player, Ville ville, String direction){
+        if((player.getpositionx()==12)&&(player.getpositiony()==12)){
+                if(ville.getPorte() == true){
+                    System.out.println("Vous ne pouvez pas sortir de la ville, les portes sont fermées.");
+                }
+        }else if(this.getCase(player.getpositionx(), player.getpositiony()).getZombie()>0){
+            System.out.print("Vous êtes attaqué.e ! Vous ne pouvez pas quitter cet endroit tant que des zombies sont présents.");
+        }else{
+            switch(direction){
+                case "aller en haut":
+                    player.DeplacementHaut();
+                case "aller en bas":
+                    player.DeplacementBas();
+                case "aller à gauche":
+                    player.DeplacementGauche();
+                case "aller à droite":
+                    player.DeplacementDroit();
+            }
+        }
+        
+    }
+    
 }
