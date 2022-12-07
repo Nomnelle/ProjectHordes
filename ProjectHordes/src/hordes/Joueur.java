@@ -18,6 +18,7 @@ public class Joueur {
     private int score;                            // Score du joueur, plus élevé = mort en premier, plus bas = mort en dernier
     private int positionx, positiony;             // Position x et y du joueur
     private boolean nourri, bu;
+    private Addiction addiction;
 
     public Joueur(int n, String nom) {
 
@@ -33,6 +34,8 @@ public class Joueur {
         
         this.nourri = false;
         this.bu = false;
+        
+        this.addiction = new Addiction();
 
     }
 
@@ -75,6 +78,10 @@ public class Joueur {
     
     public boolean getBu(){
         return this.bu;
+    }
+    
+    public Addiction getAddiction(){
+        return this.addiction;
     }
 
     // Setter
