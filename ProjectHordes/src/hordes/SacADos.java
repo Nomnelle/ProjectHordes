@@ -17,15 +17,21 @@ public class SacADos {
         bois, metal, boisson, ration, gourde
     }
     
-    public void ajouterObjet(Objet objet){
+    public void ajouterObjet(Objet objet, int quantite){
         if(this.sac.size()==10){
             System.out.println("Votre sac est plein, vous ne pouvez plus prendre d'objet.");
         }else{
-            this.sac.add(objet);
+            for(int i=0; i<quantite;i++){
+                this.sac.add(objet);
+                if(this.sac.size()==10){
+                    System.out.println("Vous ne pouvez pas prendre davantage d'objet");
+                    break;
+                }        
+            }
         }
     }
     
-    public void retirerObjet(Objet objet) {
+    public void retirerObjet(Objet objet, String cas){
         int index = this.sac.lastIndexOf(objet);
         if(index == -1){
             System.out.println("Cet objet ne fait pas partie de votre sac");

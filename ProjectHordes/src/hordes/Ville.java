@@ -106,8 +106,10 @@ public class Ville extends Case{
                         player.setBu();
                         player.setPa(player.getPa()+6);
                     }else{
-                        System.out.println("Vous n'avez plus besoin de boire pour aujourdj'hui.");
+                        System.out.println("Vous n'avez plus besoin de boire pour aujourd'hui.");
                     }
+                case "prendre objet":
+                    
             }
         }
     }
