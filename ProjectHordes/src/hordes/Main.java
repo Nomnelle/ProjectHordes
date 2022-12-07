@@ -5,6 +5,7 @@
 package hordes;
 
 import java.util.ArrayList;
+import java.util.Random;
 import java.util.Scanner;
 
 /**
@@ -108,4 +109,15 @@ public class Main {
         }
     }
     // Réccupérer objet addiction; true = commencer décompte + perte de -5 PV si 0 au décompte 
+    
+    public void tuerJoueur(ArrayList <Joueur> listeJoueur){
+        int taille = listeJoueur.size();
+        int moitie = (int) taille/2;
+        Random ra = new Random();
+        
+        for(int i = 0; i<moitie; i++){
+            int indice = ra.nextInt(taille);
+            listeJoueur.get(indice).setPv(0);
+        }
+    }
 }
