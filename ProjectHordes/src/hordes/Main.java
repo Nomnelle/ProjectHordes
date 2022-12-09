@@ -46,8 +46,8 @@ public class Main {
     public static void jeu(int nbJoueurs) {
 
         Carte carte = new Carte();
-        Ville ville = (Ville) carte.getCase(12, 12); 
-        
+        Ville ville = (Ville) carte.getCase(12, 12);
+
         ArrayList<Joueur> listeJoueur = new ArrayList();
 
         for (int i = 0; i < nbJoueurs; i++) {
@@ -59,7 +59,6 @@ public class Main {
             listeJoueur.add(j);
         }
 
-        
         boolean game = true;
         Joueur joueur;
         Scanner sc = new Scanner(System.in);
@@ -74,8 +73,8 @@ public class Main {
                 while(tour){
                     System.out.println("Que souhaitez-vous faire ?");
                     String action = sc.nextLine();
-                    
-                    switch(action){
+
+                    switch (action) {
                         case "éteindre console":
                             game = false;
                         case "aller en haut":
@@ -115,7 +114,7 @@ public class Main {
                         
                     }
                 }
-                
+
             }
             
             if(listeJoueur.size()<=1){
@@ -123,7 +122,7 @@ public class Main {
             }
             //retirer les joueurs morts de l'arraylist
             //les joueurs regagnent 4PA
-            //si y'a des addicts, avec le compteur à 0, ils perdent 5PV
+            //si y'a des addicts, avec le compteur à 0, ils perdent 5PV - DONE
             //compteur de tour prend +1
             
             if(carte.getTour()==13){
@@ -169,25 +168,21 @@ public class Main {
 
     }
 
-    public static void addiction(boolean testAddiction, int compteur) {
-        compteur = 3;
-        while (compteur != 0) {
-            if (testAddiction == true) {         // Si joueur addicte, commencer à décrémenter
-                compteur = compteur - 1;
-            }
-        }
-        while (testAddiction == false) {         // Si arrivé à 0, perte de PV jusque prise de boisson; Comment éviter boucle infinie ? Risque ici non ?
-            // rédiger perte de PV help
+    public static void addiction(Joueur joueur) {
+        if (joueur.getAddiction().getCompteurDeTour() == 0) {
+            joueur.setPv(joueur.getPv() - 5);
+        } else if (joueur.getAddiction().getTestAddiction()) {        // Implicite que == true
+            joueur.getAddiction().setCompteurDeTour(joueur.getAddiction().getCompteurDeTour() - 1);
         }
     }
     // Réccupérer objet addiction; true = commencer décompte + perte de -5 PV si 0 au décompte 
     
     public static void tuerJoueur(ArrayList <Joueur> listeJoueur){
         int taille = listeJoueur.size();
-        int moitie = (int) taille/2;
+        int moitie = (int) taille / 2;
         Random ra = new Random();
-        
-        for(int i = 0; i<moitie; i++){
+
+        for (int i = 0; i < moitie; i++) {
             int indice = ra.nextInt(taille);
             listeJoueur.get(indice).setPv(0);
         }
