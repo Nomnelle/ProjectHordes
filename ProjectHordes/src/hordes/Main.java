@@ -88,11 +88,37 @@ public class Main {
                             carte.evaluerDeplacement(joueur, ville, action);
                         case "fouiller":
                             carte.etreFouillee(joueur.getPositionx(), joueur.getPositiony(), joueur);
-                        //manger
-                        //boire à la gourde
-                        //boire boisson énergisante
-                        //tuer un zombie 
-                        //observer ce qu'il y a sur une case
+                        case "manger":
+                            if (joueur.getNourri()== true){
+                                System.out.println("Vous avez déjà mangé.");  // Vérifier que le joueur n'a pas déjà mangé
+                            } else {
+                                joueur.setPa(joueur.getPa()+6);                 // Gain des PA de la ration
+                            }
+                        case "boire":
+                            if (joueur.getBu()== true){                         // Vérifier que le joueur n'a pas déjà bu
+                                System.out.println("Vous avez déjà bu.");
+                            } else {
+                                joueur.setPa(joueur.getPa()+6);                 // Gain des PA de la gourde
+                            }
+                        case "boire boisson énergistante":
+                            if (joueur.getAddiction().getTestAddiction() == true) {
+                                joueur.getAddiction().setCompteurDeTour(3);          // Si joueur addicte, réinitialisation de son compteur
+                            } else {
+                                joueur.getAddiction().setTestAddiction(true);     // Si joueur non addicte, début d'addiction et gain de PA
+                                joueur.setPa(joueur.getPa()+4);
+                            }                           
+                        case "tuer zombie":
+                            joueur.setPa(joueur.getPa()-1);
+                            int perte = (int)(Math.random()*(10-1)) + 1;              // Une chance sur 10 de perdre des PV dans l'attaque, perte de PA quand attaque une fois
+                            if (perte<9) {
+                                System.out.println("Vous vous en sortez bien.");}
+                            else if (perte>10) {
+                                joueur.setPv(joueur.getPv()-10);
+                                System.out.println("Vous vous êtes pris un coup en retour!");
+                            }  
+                        case "observer une case":
+                            // Tostring que je ne comprends pas D:
+                            
                         case "Maj carte":
                             carte.getVisuMap().maJ(carte.getCase(joueur.getPositionx(), joueur.getPositiony()));
                         case "prendre objet":
@@ -182,9 +208,9 @@ public class Main {
 
     public static void addiction(Joueur joueur) {
         if (joueur.getAddiction().getCompteurDeTour() == 0) {
-            joueur.setPv(joueur.getPv() - 5);
-        } else if (joueur.getAddiction().getTestAddiction()) {        // Implicite que == true
-            joueur.getAddiction().setCompteurDeTour(joueur.getAddiction().getCompteurDeTour() - 1);
+            joueur.setPv(joueur.getPv() - 5);                         
+        } else if (joueur.getAddiction().getTestAddiction()) {        // Implicite que == true dans la rédaction
+            joueur.getAddiction().setCompteurDeTour(joueur.getAddiction().getCompteurDeTour() - 1); 
         }
     }
     // Récupérer objet addiction; true = commencer décompte + perte de -5 PV si 0 au décompte 

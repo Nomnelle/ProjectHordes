@@ -10,13 +10,14 @@ package hordes;
  */
 public class Addiction {
 
-    private int CompteurDeTour;
-    private boolean TestAddiction;
+    private int CompteurDeTour;        // Compteur numérique
+    private boolean TestAddiction;     // Test donc booléen
 
     public Addiction() {
-        this.CompteurDeTour = 3;
+        this.CompteurDeTour = 3;       
         this.TestAddiction = false;
-    }                                  // Initialisation du compteur de tour avant perte de PV d'addiction; Joueur non addict tant que pas de boisson prise
+    }                                  
+// Initialisation du compteur de tour avant perte de PV d'addiction; Joueur non addict (false) tant que pas de boisson prise
 
     //Getter                           
     public int getCompteurDeTour() {
