@@ -93,22 +93,25 @@ public class Main {
                                 System.out.println("Vous avez déjà mangé.");  // Vérifier que le joueur n'a pas déjà mangé
                             } else {
                                 joueur.setPa(joueur.getPa()+6);                 // Gain des PA de la ration
+                                joueur.setNourri();                             // Dire que le joueur a mangé
                             }
                         case "boire":
                             if (joueur.getBu()== true){                         // Vérifier que le joueur n'a pas déjà bu
                                 System.out.println("Vous avez déjà bu.");
                             } else {
                                 joueur.setPa(joueur.getPa()+6);                 // Gain des PA de la gourde
+                                joueur.setBu();                                 // Dire que le joueur a bu
                             }
                         case "boire boisson énergistante":
                             if (joueur.getAddiction().getTestAddiction() == true) {
                                 joueur.getAddiction().setCompteurDeTour(3);          // Si joueur addicte, réinitialisation de son compteur
                             } else {
-                                joueur.getAddiction().setTestAddiction(true);     // Si joueur non addicte, début d'addiction et gain de PA
+                                joueur.getAddiction().setTestAddiction(true);              // Si joueur non addicte, début d'addiction et gain de PA
                                 joueur.setPa(joueur.getPa()+4);
                             }                           
                         case "tuer zombie":
                             joueur.setPa(joueur.getPa()-1);
+                            // Rédiger le tuage de zombie
                             int perte = (int)(Math.random()*(10-1)) + 1;              // Une chance sur 10 de perdre des PV dans l'attaque, perte de PA quand attaque une fois
                             if (perte<9) {
                                 System.out.println("Vous vous en sortez bien.");}
@@ -117,7 +120,9 @@ public class Main {
                                 System.out.println("Vous vous êtes pris un coup en retour!");
                             }  
                         case "observer une case":
-                            // Tostring que je ne comprends pas D:
+                            Case x = new Case(joueur.getPositionx(),joueur.getPositiony());
+                            x.toString();
+                            System.out.println(x);
                             
                         case "Maj carte":
                             carte.getVisuMap().maJ(carte.getCase(joueur.getPositionx(), joueur.getPositiony()));
