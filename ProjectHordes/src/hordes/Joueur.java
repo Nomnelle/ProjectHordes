@@ -12,7 +12,7 @@ public class Joueur {
 
     private final String nomJoueur;
     private final int numJoueur;                        // Pour systeme de score dans Classe Carte
-    private String[] SacADos;
+    private SacADos sacADos;
     private int pa;                               // Point d'actions, 6 au début, max 10, récupère 4 chaque tours
     private int pv;                               // Points de vie, de 0 à 100, 100 = PV maximum
     private int score;                            // Score du joueur, plus élevé = mort en premier, plus bas = mort en dernier
@@ -24,7 +24,7 @@ public class Joueur {
 
         this.nomJoueur = nom;
         this.numJoueur = n;
-        this.SacADos = new String[10];
+        this.sacADos = new SacADos();
         this.pv = 100;
         this.pa = 6;
         this.score = 0;
@@ -48,8 +48,8 @@ public class Joueur {
         return this.nomJoueur;
     }
 
-    public String[] getSacADos() {
-        return this.SacADos;
+    public SacADos getSacADos() {
+        return this.sacADos;
     }
 
     public int getPv() {

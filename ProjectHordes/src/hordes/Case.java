@@ -14,7 +14,7 @@ public class Case {
     protected final int y; //position de la case en y
     
     protected boolean fouille; //faux si la case n'a pas été fouillée, vrai sinon
-    
+   
     protected int bois; //nombre de planches de bois sur la case
     protected int metal; //nombre de morceaux de métal sur la case
     protected int boissonEnergisante; //nombre de boissons energisantes sur la case
@@ -89,6 +89,55 @@ public class Case {
 
         }else{
             return("Cette case n'a pas encore été fouillée.");
+        }
+    }
+    
+    public void prendreObjet(Joueur player, int quantite, String objet){
+        switch(objet){
+            case "planche":
+                if(quantite>this.bois){
+                    for(int i=0;i<this.bois;i++){
+                        this.bois -=1;
+                        SacADos sac = player.getSacADos();
+                        sac.ajouterObjet(Objet.bois);
+                    }
+                }else{
+                    for(int i=0;i<quantite;i++){
+                        this.bois -=1;
+                        SacADos sac = player.getSacADos();
+                        sac.ajouterObjet(Objet.bois);
+                    }
+                }
+                case "metal":
+                    if(quantite>this.metal){
+                    for(int i=0;i<this.bois;i++){
+                        this.metal -=1;
+                        SacADos sac = player.getSacADos();
+                        sac.ajouterObjet(Objet.metal);
+                    }
+                }else{
+                    for(int i=0;i<quantite;i++){
+                        this.metal -=1;
+                        SacADos sac = player.getSacADos();
+                        sac.ajouterObjet(Objet.metal);
+                    }
+                }
+                case "boisson":
+                    if(quantite>this.boissonEnergisante){
+                    for(int i=0;i<this.boissonEnergisante;i++){
+                        this.boissonEnergisante -=1;
+                        SacADos sac = player.getSacADos();
+                        sac.ajouterObjet(Objet.boisson);
+                    }
+                }else{
+                    for(int i=0;i<quantite;i++){
+                        this.boissonEnergisante -=1;
+                        SacADos sac = player.getSacADos();
+                        sac.ajouterObjet(Objet.boisson);
+                    }
+                }
+                default:
+                    System.out.println("Il n'y a pas l'objet que vous souhaitez sur cette case.");   
         }
     }
     

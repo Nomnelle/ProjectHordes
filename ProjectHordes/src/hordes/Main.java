@@ -62,6 +62,7 @@ public class Main {
         
         boolean game = true;
         Joueur joueur;
+        Scanner sc = new Scanner(System.in);
         
         while(game){
             for(int i = 0;i<nbJoueurs;i++){
@@ -69,8 +70,8 @@ public class Main {
                 System.out.print("\033[H\033[2J");
                 String strNom = String.format("%s",joueur.getNomJoueur());
                 System.out.println("C'est au tour de "+strNom+".");
-                for(int j=5;j>0;j--){
-                    Scanner sc = new Scanner(System.in);
+                boolean tour = true;
+                while(tour){
                     System.out.println("Que souhaitez-vous faire ?");
                     String action = sc.nextLine();
                     
@@ -92,22 +93,71 @@ public class Main {
                         //boire boisson énergisante
                         //tuer un zombie 
                         //observer ce qu'il y a sur une case
-                        //communiquer ce qu'il a sur la case (Poire s'en charge)
-                        //rajouter les commandes de ce qui est vérifier dans la classe ville
-                        //permettre au joueur d'arrêter son tour
+                        case "Maj carte":
+                            carte.getVisuMap().maJ(carte.getCase(joueur.getPositionx(), joueur.getPositiony()));
+                        case "prendre objet":
+                            System.out.println("Que souhaitez-vous prendre ?");
+                            String objet = sc.nextLine();
+                            System.out.println("En quelle quantité ?");
+                            int quantite = sc.nextInt();
+                            carte.getCase(joueur.getPositionx(), joueur.getPositiony()).prendreObjet(joueur, quantite, objet);
+                        //rajouter les commandes de ce qui est vérifié dans la classe ville
+                        case "fin de tour":
+                            tour = false;
                         default:
                             System.out.println("Cette action n'est pas possible dans le jeu. Veuillez réessayer");
+                            
+                        if(joueur.getPa()==0){
+                            tour = false;
+                        }else if(joueur.getPv()==0){
+                            tour = false;
+                        }
                         
                     }
                 }
                 
             }
             
+            if(listeJoueur.size()<=1){
+                game = false;
+            }
             //retirer les joueurs morts de l'arraylist
             //les joueurs regagnent 4PA
             //si y'a des addicts, avec le compteur à 0, ils perdent 5PV
             //compteur de tour prend +1
             
+            if(carte.getTour()==13){
+                if((ville.getNbZombieDefendable()<ville.genererZombie())||(ville.getPorte())){
+                    tuerJoueur(listeJoueur);
+                }
+            }
+            
+            int compteur = 0;
+            String journal = "";
+            
+            for(Joueur j:listeJoueur){
+                j.setBu();
+                j.setNourri();
+                j.setPa(j.getPa()+4);
+                if(j.getAddiction().getTestAddiction()){
+                    
+                }
+                if(j.getPv()==0){
+                    compteur += 1;
+                    journal += j.getNomJoueur()+" ";
+                    listeJoueur.remove(j);
+                }  
+            }
+            
+            switch(compteur){
+                case 0:
+                    System.out.println("Personne n'est mort à ce tour");
+                case 1:
+                    journal += "est mort.e à ce tour.";
+                default:
+                    String strCompteur = String.format("%d", compteur);
+                    journal += ("sont morts à ce tour. Cela fait un total de "+strCompteur+" morts.");
+            }
             //lorsque le compteur est à 13
             //les joueurs en dehors de la ville meurent 
             //si la porte est ouverte ou si les défenses de la ville sont inférieures au nombre de zombie, attaque 
@@ -132,7 +182,7 @@ public class Main {
     }
     // Réccupérer objet addiction; true = commencer décompte + perte de -5 PV si 0 au décompte 
     
-    public void tuerJoueur(ArrayList <Joueur> listeJoueur){
+    public static void tuerJoueur(ArrayList <Joueur> listeJoueur){
         int taille = listeJoueur.size();
         int moitie = (int) taille/2;
         Random ra = new Random();

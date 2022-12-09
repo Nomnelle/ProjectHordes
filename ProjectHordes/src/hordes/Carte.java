@@ -13,13 +13,14 @@ import java.util.Random;
 public class Carte {
     
     private final Case[][] map;
+    private Communication visuMap;
     private int tour;
     
     private int totMetal;
     private int totBois;
     private int totBoissEner;
     
-    int COTE = 25;
+    final static int COTE = 25;
     
     public Carte(){
         this.map = new Case[COTE][COTE];
@@ -50,6 +51,10 @@ public class Carte {
     
     public int getTour(){
         return this.tour;
+    }
+    
+    public Communication getVisuMap(){
+        return this.visuMap;
     }
 
     

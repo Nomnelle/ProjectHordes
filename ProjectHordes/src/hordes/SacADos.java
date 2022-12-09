@@ -13,25 +13,16 @@ import java.util.ArrayList;
 public class SacADos {
     
     private ArrayList<Objet> sac;
-    public enum Objet{
-        bois, metal, boisson, ration, gourde
-    }
     
-    public void ajouterObjet(Objet objet, int quantite){
+    public void ajouterObjet(Objet objet){
         if(this.sac.size()==10){
             System.out.println("Votre sac est plein, vous ne pouvez plus prendre d'objet.");
         }else{
-            for(int i=0; i<quantite;i++){
-                this.sac.add(objet);
-                if(this.sac.size()==10){
-                    System.out.println("Vous ne pouvez pas prendre davantage d'objet");
-                    break;
-                }        
-            }
+            this.sac.add(objet);
         }
     }
-    
-    public void retirerObjet(Objet objet, String cas){
+
+    public void retirerObjet(Objet objet){
         int index = this.sac.lastIndexOf(objet);
         if(index == -1){
             System.out.println("Cet objet ne fait pas partie de votre sac");
