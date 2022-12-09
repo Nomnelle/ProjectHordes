@@ -27,11 +27,11 @@ public class Chantier {
     }
     
     //getter
-    public String nomChantier(){
+    public String getNomChantier(){
         return this.nomChantier;
     }
    
-    public int paRestant(){
+    public int getPaRestant(){
         return this.paRestant;
     }
     
