@@ -120,12 +120,22 @@ public class Main {
             if(listeJoueur.size()<=1){
                 game = false;
             }
-            //retirer les joueurs morts de l'arraylist
-            //les joueurs regagnent 4PA
-            //si y'a des addicts, avec le compteur à 0, ils perdent 5PV - DONE
-            //compteur de tour prend +1
+            
+            
+            carte.setTour(carte.getTour()+1);
             
             if(carte.getTour()==13){
+                String journal = "";
+                for(Joueur j:listeJoueur){
+                    if((!(j.getPositiony()==12))||(!(j.getPositionx()==12))){
+                            journal += j.getNomJoueur();
+                        }
+                        
+                    }
+                if(!(journal.equals(""))){
+                    System.out.println(journal+"sont morts car ils étaient hors de la ville.");
+                        
+                }
                 if((ville.getNbZombieDefendable()<ville.genererZombie())||(ville.getPorte())){
                     tuerJoueur(listeJoueur);
                 }
@@ -153,17 +163,12 @@ public class Main {
                     System.out.println("Personne n'est mort à ce tour");
                 case 1:
                     journal += "est mort.e à ce tour.";
+                    System.out.println(journal);
                 default:
                     String strCompteur = String.format("%d", compteur);
                     journal += ("sont morts à ce tour. Cela fait un total de "+strCompteur+" morts.");
+                    System.out.println(journal);
             }
-            //lorsque le compteur est à 13
-            //les joueurs en dehors de la ville meurent 
-            //si la porte est ouverte ou si les défenses de la ville sont inférieures au nombre de zombie, attaque 
-            //si attaque, retirer les joueurs morts de l'arraylist 
-            //si il reste une personne, le jeu prends fin
-            //si le jeu est zncore en cours, les survivants regagnent
-            //les joueurs peuvent boire et manger 
         }
 
     }

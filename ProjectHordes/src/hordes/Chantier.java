@@ -20,7 +20,7 @@ public class Chantier {
     public Chantier (String nomChantier, int paRestant, int nbZombieResiste, int nbPlanche, int nbMetal){
         this.nomChantier = nomChantier;
         this.paRestant = paRestant;
-        this.chantierFini = true;
+        this.chantierFini = false;
         this.nbZombieResiste = nbZombieResiste;
         this.nbPlanche = nbPlanche;
         this.nbMetal = nbMetal;
