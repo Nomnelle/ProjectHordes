@@ -60,5 +60,12 @@ public class Chantier {
         this.chantierFini = true;
     }
     
+    public void setNbPlanche(int i){
+        this.nbPlanche = i;
+    }
+    
+    public void setNbMetal(int i){
+        this.nbMetal = i;
+    }
     
 }
