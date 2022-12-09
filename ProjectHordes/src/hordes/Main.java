@@ -39,11 +39,12 @@ public class Main {
             }
         }
 
-        jeu(nbJoueurs);
+        String gagnant = jeu(nbJoueurs);
+        System.out.println(gagnant+" a gagné !");
 
     }
 
-    public static void jeu(int nbJoueurs) {
+    public static String jeu(int nbJoueurs) {
 
         Carte carte = new Carte();
         Ville ville = (Ville) carte.getCase(12, 12);
@@ -104,7 +105,7 @@ public class Main {
                         case "fin de tour":
                             tour = false;
                         default:
-                            System.out.println("Cette action n'est pas possible dans le jeu. Veuillez réessayer");
+                            System.out.println("Cette action n'est pas possible dans ce jeu. Veuillez réessayer");
                             
                         if(joueur.getPa()==0){
                             tour = false;
@@ -123,16 +124,22 @@ public class Main {
             
             
             carte.setTour(carte.getTour()+1);
+            int compteur = 0;
+            String journal = "";
             
             if(carte.getTour()==13){
-                String journal = "";
                 for(Joueur j:listeJoueur){
                     if((!(j.getPositiony()==12))||(!(j.getPositionx()==12))){
+                        if(listeJoueur.size()<=1){
+                            game = false;
+                            break;
+                        }else{
                             journal += j.getNomJoueur();
                         }
                         
                     }
-                if(!(journal.equals(""))){
+                }
+                 if(!(journal.equals(""))){
                     System.out.println(journal+"sont morts car ils étaient hors de la ville.");
                         
                 }
@@ -140,16 +147,14 @@ public class Main {
                     tuerJoueur(listeJoueur);
                 }
             }
-            
-            int compteur = 0;
-            String journal = "";
+   
             
             for(Joueur j:listeJoueur){
                 j.setBu();
                 j.setNourri();
                 j.setPa(j.getPa()+4);
                 if(j.getAddiction().getTestAddiction()){
-                    
+                    addiction(j);
                 }
                 if(j.getPv()==0){
                     compteur += 1;
@@ -169,9 +174,11 @@ public class Main {
                     journal += ("sont morts à ce tour. Cela fait un total de "+strCompteur+" morts.");
                     System.out.println(journal);
             }
-        }
-
     }
+    return(listeJoueur.get(0).getNomJoueur());      
+
+}
+        
 
     public static void addiction(Joueur joueur) {
         if (joueur.getAddiction().getCompteurDeTour() == 0) {
@@ -180,7 +187,7 @@ public class Main {
             joueur.getAddiction().setCompteurDeTour(joueur.getAddiction().getCompteurDeTour() - 1);
         }
     }
-    // Réccupérer objet addiction; true = commencer décompte + perte de -5 PV si 0 au décompte 
+    // Récupérer objet addiction; true = commencer décompte + perte de -5 PV si 0 au décompte 
     
     public static void tuerJoueur(ArrayList <Joueur> listeJoueur){
         int taille = listeJoueur.size();

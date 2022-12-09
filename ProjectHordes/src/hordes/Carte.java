@@ -164,12 +164,40 @@ public class Carte {
             switch(direction){
                 case "aller en haut":
                     player.deplacementHaut();
+                     if((player.getPositionx()==12)&&(player.getPositiony()==12)){
+                        if(ville.getPorte() == true){
+                            System.out.println("Les portes de la ville sont fermées, vous ne pouvez pas rentrer.");
+                            player.setPa(player.getPa()+2);
+                            player.deplacementBas();
+                        }
+                    }
                 case "aller en bas":
                     player.deplacementBas();
+                     if((player.getPositionx()==12)&&(player.getPositiony()==12)){
+                        if(ville.getPorte() == true){
+                            System.out.println("Les portes de la ville sont fermées, vous ne pouvez pas rentrer.");
+                            player.setPa(player.getPa()+2);
+                            player.deplacementHaut();
+                        }
+                    }
                 case "aller à gauche":
                     player.deplacementGauche();
+                     if((player.getPositionx()==12)&&(player.getPositiony()==12)){
+                        if(ville.getPorte() == true){
+                            System.out.println("Les portes de la ville sont fermées, vous ne pouvez pas rentrer.");
+                            player.setPa(player.getPa()+2);
+                            player.deplacementDroit();
+                        }
+                    }
                 case "aller à droite":
                     player.deplacementDroit();
+                     if((player.getPositionx()==12)&&(player.getPositiony()==12)){
+                        if(ville.getPorte() == true){
+                            System.out.println("Les portes de la ville sont fermées, vous ne pouvez pas rentrer.");
+                            player.setPa(player.getPa()+2);
+                            player.deplacementGauche();
+                        }
+                    }
             }
         }
         
