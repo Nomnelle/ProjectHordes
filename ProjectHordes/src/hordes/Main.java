@@ -39,11 +39,12 @@ public class Main {
             }
         }
 
-        jeu(nbJoueurs);
+        String gagnant = jeu(nbJoueurs);
+        System.out.println(gagnant+" a gagné !");
 
     }
 
-    public static void jeu(int nbJoueurs) {
+    public static String jeu(int nbJoueurs) {
 
         Carte carte = new Carte();
         Ville ville = (Ville) carte.getCase(12, 12);
@@ -87,11 +88,42 @@ public class Main {
                             carte.evaluerDeplacement(joueur, ville, action);
                         case "fouiller":
                             carte.etreFouillee(joueur.getPositionx(), joueur.getPositiony(), joueur);
-                        //manger
-                        //boire à la gourde
-                        //boire boisson énergisante
-                        //tuer un zombie 
-                        //observer ce qu'il y a sur une case
+                        case "manger":
+                            if (joueur.getNourri()== true){
+                                System.out.println("Vous avez déjà mangé.");  // Vérifier que le joueur n'a pas déjà mangé
+                            } else {
+                                joueur.setPa(joueur.getPa()+6);                 // Gain des PA de la ration
+                                joueur.setNourri();                             // Dire que le joueur a mangé
+                            }
+                        case "boire":
+                            if (joueur.getBu()== true){                         // Vérifier que le joueur n'a pas déjà bu
+                                System.out.println("Vous avez déjà bu.");
+                            } else {
+                                joueur.setPa(joueur.getPa()+6);                 // Gain des PA de la gourde
+                                joueur.setBu();                                 // Dire que le joueur a bu
+                            }
+                        case "boire boisson énergistante":
+                            if (joueur.getAddiction().getTestAddiction() == true) {
+                                joueur.getAddiction().setCompteurDeTour(3);          // Si joueur addicte, réinitialisation de son compteur
+                            } else {
+                                joueur.getAddiction().setTestAddiction(true);              // Si joueur non addicte, début d'addiction et gain de PA
+                                joueur.setPa(joueur.getPa()+4);
+                            }                           
+                        case "tuer zombie":
+                            joueur.setPa(joueur.getPa()-1);
+                            // Rédiger le tuage de zombie
+                            int perte = (int)(Math.random()*(10-1)) + 1;              // Une chance sur 10 de perdre des PV dans l'attaque, perte de PA quand attaque une fois
+                            if (perte<9) {
+                                System.out.println("Vous vous en sortez bien.");}
+                            else if (perte>10) {
+                                joueur.setPv(joueur.getPv()-10);
+                                System.out.println("Vous vous êtes pris un coup en retour!");
+                            }  
+                        case "observer une case":
+                            Case x = new Case(joueur.getPositionx(),joueur.getPositiony());
+                            x.toString();
+                            System.out.println(x);
+                            
                         case "Maj carte":
                             carte.getVisuMap().maJ(carte.getCase(joueur.getPositionx(), joueur.getPositiony()));
                         case "prendre objet":
@@ -104,7 +136,7 @@ public class Main {
                         case "fin de tour":
                             tour = false;
                         default:
-                            System.out.println("Cette action n'est pas possible dans le jeu. Veuillez réessayer");
+                            System.out.println("Cette action n'est pas possible dans ce jeu. Veuillez réessayer");
                             
                         if(joueur.getPa()==0){
                             tour = false;
@@ -123,16 +155,22 @@ public class Main {
             
             
             carte.setTour(carte.getTour()+1);
+            int compteur = 0;
+            String journal = "";
             
             if(carte.getTour()==13){
-                String journal = "";
                 for(Joueur j:listeJoueur){
                     if((!(j.getPositiony()==12))||(!(j.getPositionx()==12))){
+                        if(listeJoueur.size()<=1){
+                            game = false;
+                            break;
+                        }else{
                             journal += j.getNomJoueur();
                         }
                         
                     }
-                if(!(journal.equals(""))){
+                }
+                 if(!(journal.equals(""))){
                     System.out.println(journal+"sont morts car ils étaient hors de la ville.");
                         
                 }
@@ -140,16 +178,14 @@ public class Main {
                     tuerJoueur(listeJoueur);
                 }
             }
-            
-            int compteur = 0;
-            String journal = "";
+   
             
             for(Joueur j:listeJoueur){
                 j.setBu();
                 j.setNourri();
                 j.setPa(j.getPa()+4);
                 if(j.getAddiction().getTestAddiction()){
-                    
+                    addiction(j);
                 }
                 if(j.getPv()==0){
                     compteur += 1;
@@ -169,18 +205,20 @@ public class Main {
                     journal += ("sont morts à ce tour. Cela fait un total de "+strCompteur+" morts.");
                     System.out.println(journal);
             }
-        }
-
     }
+    return(listeJoueur.get(0).getNomJoueur());      
+
+}
+        
 
     public static void addiction(Joueur joueur) {
         if (joueur.getAddiction().getCompteurDeTour() == 0) {
-            joueur.setPv(joueur.getPv() - 5);
-        } else if (joueur.getAddiction().getTestAddiction()) {        // Implicite que == true
-            joueur.getAddiction().setCompteurDeTour(joueur.getAddiction().getCompteurDeTour() - 1);
+            joueur.setPv(joueur.getPv() - 5);                         
+        } else if (joueur.getAddiction().getTestAddiction()) {        // Implicite que == true dans la rédaction
+            joueur.getAddiction().setCompteurDeTour(joueur.getAddiction().getCompteurDeTour() - 1); 
         }
     }
-    // Réccupérer objet addiction; true = commencer décompte + perte de -5 PV si 0 au décompte 
+    // Récupérer objet addiction; true = commencer décompte + perte de -5 PV si 0 au décompte 
     
     public static void tuerJoueur(ArrayList <Joueur> listeJoueur){
         int taille = listeJoueur.size();

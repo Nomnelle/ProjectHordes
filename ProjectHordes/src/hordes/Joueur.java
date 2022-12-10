@@ -11,29 +11,29 @@ package hordes;
 public class Joueur {
 
     private final String nomJoueur;
-    private final int numJoueur;                        // Pour systeme de score dans Classe Carte
-    private SacADos sacADos;
+    private final int numJoueur;                  // Pour le systeme de score dans Classe Carte
+    private SacADos sacADos;                      // Sac à dos du joueur
     private int pa;                               // Point d'actions, 6 au début, max 10, récupère 4 chaque tours
     private int pv;                               // Points de vie, de 0 à 100, 100 = PV maximum
     private int score;                            // Score du joueur, plus élevé = mort en premier, plus bas = mort en dernier
     private int positionx, positiony;             // Position x et y du joueur
-    private boolean nourri, bu;
-    private Addiction addiction;
+    private boolean nourri, bu;                   // Test true dès que nourri ou bu
+    private Addiction addiction;                  // Réccupérer l'objet addiction
 
-    public Joueur(int n, String nom) {
+    public Joueur(int n, String nom) {            // Constructeur du Joueur
 
         this.nomJoueur = nom;
         this.numJoueur = n;
         this.sacADos = new SacADos();
         this.pv = 100;
         this.pa = 6;
-        this.score = 0;
+        this.score = 0;                            // Initialisation des PA, PV et Score à leur valeur début
 
-        this.positionx = 12;
+        this.positionx = 12;                       // Position initiale au milieu de la carte
         this.positiony = 12;   
         
         this.nourri = false;
-        this.bu = false;
+        this.bu = false;                           // Initialisation des attributs à "false"; Les joueurs n'ont pas encore pris de nourriture ni d'eau
         
         this.addiction = new Addiction();
 
@@ -89,7 +89,7 @@ public class Joueur {
         this.pv = i;
         if(this.pv==0){
             String strNom = String.format("%s", this.nomJoueur);
-            System.out.println(strNom+" a été tué!");
+            System.out.println(strNom+" a été tué!");                           // Mort du personnage à 0 PV
         }
     }
 
@@ -97,7 +97,7 @@ public class Joueur {
         if (i > 10) {
             this.pa = 10;
         } else if (i < 0) {
-            this.pa = 0;
+            this.pa = 0;                             // Limites des PA à leurs intervales
         } else {
             this.pa = i;
         }
@@ -124,10 +124,10 @@ public class Joueur {
     }
 
     public void deplacementHaut() {
-        if (this.positiony == 0) {                 // Limites de cartes
+        if (this.positiony == 0) {                 // Limites de la carte, définies pour chaque déplacements
             System.out.println("Avancer plus serait dangereux, vous devriez revenir sur vos pas");
         }else{
-            this.setPositiony(this.positiony - 1);
+            this.setPositiony(this.positiony - 1); // Déplacement des joueurs sur les axes x/y en fonction du sens du déplaczment
             this.pa -=1;
         }
     }
