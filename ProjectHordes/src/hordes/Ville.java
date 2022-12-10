@@ -114,12 +114,73 @@ public class Ville extends Case{
                 //démarrer chantier 
                 //allouer des PA pour faire avancer le chantier 
                 //voir ce qu'il y a dans l'entrepot
-                    
+                
+                
             }
         }
     }
     
+    public void demarerChantier(Joueur player, String chantier){
+        if((player.getPositionx()==this.x)&&(player.getPositiony()==this.y)){
+            switch(chantier){
+                case "Mur d'enceinte":
+                    int index=0;
+                    for(int i=0;i<this.tabChantier.length;i++){
+                        if (this.tabChantier[i].nomChantier().equals("Mur d'enceinte")){
+                            index = i;
+                        }
+                    }
+                    if((tabChantier[index].getNbPlanche() == 0)&&(tabChantier[index].getNbMetal() ==0)){
+                        System.out.println("Ce chantier a déjà été commencé");
+                    }else if ((tabChantier[index].getNbPlanche()>this.bois)||(tabChantier[index].getNbMetal()>this.metal)){
+                        System.out.println("Vous n'avez pas assez de ressources pour construire ce chantier");
+                    }else{
+                        this.bois-=tabChantier[index].getNbPlanche();
+                        this.metal-=tabChantier[index].getNbMetal();
+                        
+                        tabChantier[index].setNbPlanche(0);
+                        tabChantier[index].setNbMetal(0);
+                    }
+            }
+        }
+    }
     
+    public void autoriserChantier(String chantier){
+        
+    }
     
+    public void deposerObjet(Joueur player, int quantite, String objet){
+        switch(objet){
+            case "planche":
+                if(quantite>this.bois){
+                    for(int i=0;i<quantite;i++){
+                        this.bois +=1;
+                        SacADos sac = player.getSacADos();
+                        sac.ajouterObjet(Objet.bois);
+                    }
+                }
+                case "metal":
+                    if(quantite>this.metal){
+                    for(int i=0;i<quantite;i++){
+                        this.metal +=1;
+                        SacADos sac = player.getSacADos();
+                        sac.ajouterObjet(Objet.metal);
+                    }
+                }
+                case "boisson":
+                    if(quantite>this.boissonEnergisante){
+                    for(int i=0;i<quantite;i++){
+                        this.boissonEnergisante +=1;
+                        SacADos sac = player.getSacADos();
+                        sac.ajouterObjet(Objet.boisson);
+                    }
+                }
+                    
+                case "ration":
+                    
+                    
+                default:
+                    System.out.println("Il n'y a pas l'objet que vous souhaitez sur cette case.");  
+    }
 }
 
