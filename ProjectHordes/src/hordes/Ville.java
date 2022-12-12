@@ -140,7 +140,7 @@ public class Ville extends Case{
                 case "Mur d'enceinte":
                     int index=0;
                     for(int i=0;i<this.tabChantier.length;i++){
-                        if (this.tabChantier[i].nomChantier().equals("Mur d'enceinte")){
+                        if (this.tabChantier[i].getNomChantier().equals("Mur d'enceinte")){
                             index = i;
                         }
                     }
@@ -194,7 +194,8 @@ public class Ville extends Case{
                     
                     
                 default:
-                    System.out.println("Il n'y a pas l'objet que vous souhaitez sur cette case.");  
+                    System.out.println("Il n'y a pas l'objet que vous souhaitez sur cette case.");
+        }
     }
 }
 

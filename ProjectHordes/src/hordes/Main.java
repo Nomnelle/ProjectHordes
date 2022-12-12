@@ -66,6 +66,9 @@ public class Main {
         
         while(game){
             for(int i = 0;i<nbJoueurs;i++){
+                if(listeJoueur.size()<=1){
+                    game = false;
+                }
                 joueur = listeJoueur.get(i);
                 System.out.print("\033[H\033[2J");
                 String strNom = String.format("%s",joueur.getNomJoueur());
@@ -120,10 +123,8 @@ public class Main {
                                 System.out.println("Vous vous êtes pris un coup en retour!");
                             }  
                         case "observer une case":
-                            Case x = new Case(joueur.getPositionx(),joueur.getPositiony());
-                            x.toString();
-                            System.out.println(x);
-                            
+                            Case emplacement = carte.getCase(joueur.getPositionx(),joueur.getPositiony());
+                            System.out.println(emplacement.toString());
                         case "Maj carte":
                             carte.getVisuMap().maJ(carte.getCase(joueur.getPositionx(), joueur.getPositiony()));
                         case "prendre objet":
@@ -147,12 +148,7 @@ public class Main {
                     }
                 }
 
-            }
-            
-            if(listeJoueur.size()<=1){
-                game = false;
-            }
-            
+            }   
             
             carte.setTour(carte.getTour()+1);
             int compteur = 0;
