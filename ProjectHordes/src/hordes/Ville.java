@@ -5,6 +5,7 @@
 package hordes;
 
 import java.util.Random;
+import java.util.Scanner;
 
 /**
  *
@@ -106,6 +107,7 @@ public class Ville extends Case{
     }
     
     public void evaluerActionVille(Joueur player, String action){
+        Scanner sc = new Scanner(System.in);
         if((player.getPositionx()==this.x)&&(player.getPositiony()==this.y)){
             switch(action){
                 case "actionner porte":
@@ -115,6 +117,7 @@ public class Ville extends Case{
                     }else{
                         System.out.println("La porte a été fermée.");
                     }
+                    break;
                 case "boire":
                     if(!(player.getBu())){
                         player.setBu();
@@ -122,79 +125,308 @@ public class Ville extends Case{
                     }else{
                         System.out.println("Vous n'avez plus besoin de boire pour aujourd'hui.");
                     }
-                case "prendre objet":
-                    //terminer 
-                //deposer objets
-                //démarrer chantier 
-                //allouer des PA pour faire avancer le chantier 
-                //voir ce qu'il y a dans l'entrepot
-                
-                
+                    break;
+                case "deposer objet":
+                    System.out.println("Quel objet voulez-vous déposer ? Entrez son nom.");
+                    String objet = sc.nextLine();
+                    System.out.println("En quelle quantité ? Entrez un numérique.");
+                    int quantite = sc.nextInt();
+                    this.deposerObjet(player, quantite, objet);
+                    break;
+                case "demarrer nouveau chantier":
+                    System.out.println("Quel chantier voulez-vous démarrer ? Entrez son nom.");
+                    String chantier = sc.nextLine();
+                    this.demarrerChantier(player, chantier);
+                    break;
+                case "travailler sur chantier":
+                    System.out.println("Sur quel chantier voulez vous travailler ? Entrez son nom.");
+                    chantier = sc.nextLine();
+                    System.out.println("Durant combien de temps ? Entrez nombre de Pa.");
+                    int temps = sc.nextInt();
+                    this.travaillerChantier(player, chantier, temps);
+                    break;
+                case "consulter entrepot":
+                    System.out.println(this.toString());
+                    break;
             }
         }
     }
     
-    public void demarerChantier(Joueur player, String chantier){
-        if((player.getPositionx()==this.x)&&(player.getPositiony()==this.y)){
-            switch(chantier){
-                case "Mur d'enceinte":
-                    int index=0;
-                    for(int i=0;i<this.tabChantier.length;i++){
-                        if (this.tabChantier[i].getNomChantier().equals("Mur d'enceinte")){
-                            index = i;
-                        }
-                    }
-                    if((tabChantier[index].getNbPlanche() == 0)&&(tabChantier[index].getNbMetal() ==0)){
-                        System.out.println("Ce chantier a déjà été commencé");
-                    }else if ((tabChantier[index].getNbPlanche()>this.bois)||(tabChantier[index].getNbMetal()>this.metal)){
-                        System.out.println("Vous n'avez pas assez de ressources pour construire ce chantier");
-                    }else{
-                        this.bois-=tabChantier[index].getNbPlanche();
-                        this.metal-=tabChantier[index].getNbMetal();
-                        
-                        tabChantier[index].setNbPlanche(0);
-                        tabChantier[index].setNbMetal(0);
-                    }
-            }
+    public void demarrerChantier(Joueur player, String chantier){
+        switch(chantier){
+            case "Mur d'enceinte":
+                this.autoriserChantier(chantier);
+                break;
+            case "Fils barbelés":
+                this.autoriserChantier(chantier);
+                break;
+            case "Fosses à Zombies":
+                this.autoriserChantier(chantier);
+                break;
+            case "Mines":
+                this.autoriserChantier(chantier);
+                break;
+            case "Porte blindées":
+                this.autoriserChantier(chantier);
+                break;
+            case "Miradors":
+                this.autoriserChantier(chantier);
+                break;
+            case "Abris anti-atomique": 
+                this.autoriserChantier(chantier);
+                break;
+            default:
+                System.out.println("Ce chantier ne fait pas partie des chantiers disponibles.");  
+                break;
         }
     }
+    
     
     public void autoriserChantier(String chantier){
+        int index=0;
+        for(int i=0;i<this.tabChantier.length;i++){
+            if (this.tabChantier[i].getNomChantier().equals(chantier)){
+                index = i;
+            }
+        }
+        if((tabChantier[index].getNbPlanche() == 0)&&(tabChantier[index].getNbMetal() ==0)){
+            System.out.println("Ce chantier a déjà été commencé");
+        }else if ((tabChantier[index].getNbPlanche()>this.bois)||(tabChantier[index].getNbMetal()>this.metal)){
+            System.out.println("Vous n'avez pas assez de ressources pour construire ce chantier");
+        }else{
+            this.bois-=tabChantier[index].getNbPlanche();
+            this.metal-=tabChantier[index].getNbMetal();
+                        
+            tabChantier[index].setNbPlanche(0);
+            tabChantier[index].setNbMetal(0);
+        }
         
     }
     
-    public void deposerObjet(Joueur player, int quantite, String objet){
+    public void travaillerChantier(Joueur joueur, String chantier, int temps){
+        int index=0;
+        for(int i=0;i<this.tabChantier.length;i++){
+            if (this.tabChantier[i].getNomChantier().equals(chantier)){
+                if(this.tabChantier[i].getNbPlanche()==0){
+                    if(this.tabChantier[i].getNbMetal()==0){
+                        index = i;
+                    }else{
+                        chantier = "";
+                    }
+                }   
+            }
+        }
+        switch(chantier){
+                case "Mur d'enceinte":
+                    this.tabChantier[index].aiderChantier(joueur, temps, this);
+                    break;
+                case "Fils barbelés":
+                    this.tabChantier[index].aiderChantier(joueur, temps, this);
+                    break;
+                case "Fosses à Zombies":
+                    this.tabChantier[index].aiderChantier(joueur, temps, this);
+                    break;
+                case "Mines":
+                    this.tabChantier[index].aiderChantier(joueur, temps, this);
+                    break;
+                case "Porte blindées":
+                    this.tabChantier[index].aiderChantier(joueur, temps, this);
+                    break;
+                case "Miradors":
+                    this.tabChantier[index].aiderChantier(joueur, temps, this);
+                    break;
+                case "Abris anti-atomique": 
+                    this.tabChantier[index].aiderChantier(joueur, temps, this);
+                    break;
+                default:
+                    System.out.println("Ce chantier ne fait pas partie des chantiers disponibles pour des travaux.");  
+                    break;
+            } 
+    }
+    
+    @Override
+    public void prendreObjet(Joueur player, int quantite, String objet){
         switch(objet){
             case "planche":
-                if(quantite>this.bois){
-                    for(int i=0;i<quantite;i++){
-                        this.bois +=1;
-                        SacADos sac = player.getSacADos();
-                        sac.ajouterObjet(Objet.bois);
+                if(this.bois >0){
+                    if(quantite>this.bois){
+                        for(int i=0;i<this.bois;i++){
+                            SacADos sac = player.getSacADos();
+                            boolean added = sac.ajouterObjet(Objet.bois);
+                            if(added){
+                                this.bois -=1;
+                            }
+                        }
+                    }else{
+                        for(int i=0;i<quantite;i++){
+                            SacADos sac = player.getSacADos();
+                            boolean added = sac.ajouterObjet(Objet.bois);
+                            if(added){
+                                this.bois -=1;
+                            }
+                        }
                     }
+                }else{
+                    System.out.println("Il n'y a plus de bois dans l'entrepot.");
                 }
-                case "metal":
+                break;
+            case "metal":
+                if(this.metal >0){
                     if(quantite>this.metal){
-                    for(int i=0;i<quantite;i++){
-                        this.metal +=1;
-                        SacADos sac = player.getSacADos();
-                        sac.ajouterObjet(Objet.metal);
+                        for(int i=0;i<this.metal;i++){
+                            SacADos sac = player.getSacADos();
+                            boolean added = sac.ajouterObjet(Objet.metal);
+                            if(added){
+                                this.metal -=1;
+                            }
+                        }
+                    }else{
+                        for(int i=0;i<quantite;i++){
+                            SacADos sac = player.getSacADos();
+                            boolean added = sac.ajouterObjet(Objet.metal);
+                            if(added){
+                                this.metal -=1;
+                            }
+                        }
                     }
+                }else{
+                    System.out.println("Il n'y a plus de métal dans l'entrepot.");
                 }
-                case "boisson":
+                break;
+            case "boisson":
+                if(this.boissonEnergisante > 0){
                     if(quantite>this.boissonEnergisante){
-                    for(int i=0;i<quantite;i++){
-                        this.boissonEnergisante +=1;
-                        SacADos sac = player.getSacADos();
-                        sac.ajouterObjet(Objet.boisson);
+                        for(int i=0;i<this.boissonEnergisante;i++){
+                            SacADos sac = player.getSacADos();
+                            boolean added = sac.ajouterObjet(Objet.boisson);
+                            if(added){
+                                this.boissonEnergisante -=1;
+                            }
+                        }
+                    }else{
+                        for(int i=0;i<quantite;i++){
+                            SacADos sac = player.getSacADos();
+                            boolean added = sac.ajouterObjet(Objet.boisson);
+                            if(added){
+                                this.boissonEnergisante -=1;
+                            }
+                        }
+                    }
+                }else{
+                    System.out.println("Il n'y a plus de boisson énergisante dans l'entrepot.");
+                }
+                break;
+            case "ration":
+                if(this.boissonEnergisante > 0){
+                    if(quantite>this.boissonEnergisante){
+                        for(int i=0;i<this.boissonEnergisante;i++){
+                            SacADos sac = player.getSacADos();
+                            boolean added = sac.ajouterObjet(Objet.boisson);
+                            if(added){
+                                this.boissonEnergisante -=1;
+                            }
+                        }
+                    }else{
+                        for(int i=0;i<quantite;i++){
+                            SacADos sac = player.getSacADos();
+                            boolean added = sac.ajouterObjet(Objet.boisson);
+                            if(added){
+                                this.boissonEnergisante -=1;
+                            }
+                        }
+                    }
+                }else{
+                    System.out.println("Il n'y a plus de ration dans l'entrepot.");
+                }
+                break;
+            case "gourde":
+                if(player.getBu()){
+                    System.out.println("Vous avez déjà eu votre ration d'eau aujourd'hui.");
+                }else{
+                    SacADos sac = player.getSacADos();
+                    boolean added = sac.ajouterObjet(Objet.gourde);
+                    if(added){
+                        player.setBu();
                     }
                 }
-                    
-                case "ration":
-                    
-                    
+                break;
+            default:
+                System.out.println("Il n'y a pas l'objet que vous souhaitez sur cette case."); 
+                break;
+        }
+    }
+    
+    public void deposerObjet(Joueur player, int quantite, String objet){
+        SacADos sac = player.getSacADos();
+        int possede = 0;
+        switch(objet){
+            case "planche":
+                for(int i = 0;i<sac.getSac().size();i++){
+                    if(sac.getSac().get(i)==Objet.bois){
+                        possede +=1;
+                    }
+                }
+                if(quantite>possede){
+                    for(int i=0;i<possede;i++){
+                        sac.retirerObjet(Objet.bois);
+                    }
+                }else{
+                    for(int i=0;i<quantite;i++){
+                        sac.retirerObjet(Objet.bois);
+                    }
+                }
+                break;
+                case "metal":
+                    for(int i = 0;i<sac.getSac().size();i++){
+                        if(sac.getSac().get(i)==Objet.metal){
+                            possede +=1;
+                        }
+                    }
+                    if(quantite>possede){
+                        for(int i=0;i<possede;i++){
+                            sac.retirerObjet(Objet.metal);
+                        }
+                    }else{
+                        for(int i=0;i<quantite;i++){
+                            sac.retirerObjet(Objet.metal);
+                        }
+                    }
+                    break;
+                case "boisson":
+                    for(int i = 0;i<sac.getSac().size();i++){
+                        if(sac.getSac().get(i)==Objet.boisson){
+                            possede +=1;
+                        }
+                    }
+                    if(quantite>possede){
+                            for(int i=0;i<possede;i++){
+                                sac.retirerObjet(Objet.boisson);
+                            }
+                    }else{
+                        for(int i=0;i<quantite;i++){
+                            sac.retirerObjet(Objet.boisson);
+                        }
+                    }
+                    break;
+                case "ration" :
+                    for(int i = 0;i<sac.getSac().size();i++){
+                        if(sac.getSac().get(i)==Objet.ration){
+                            possede +=1;
+                        }
+                    }
+                    if(quantite>possede){
+                            for(int i=0;i<possede;i++){
+                                sac.retirerObjet(Objet.ration);
+                            }
+                    }else{
+                        for(int i=0;i<quantite;i++){
+                            sac.retirerObjet(Objet.ration);
+                        }
+                    }
+                    break;
                 default:
-                    System.out.println("Il n'y a pas l'objet que vous souhaitez sur cette case.");
+                    System.out.println("Vous ne possédez pas cet objet.");
+                    break;
         }
     }
 }

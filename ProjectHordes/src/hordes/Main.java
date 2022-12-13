@@ -75,22 +75,33 @@ public class Main {
                 System.out.println("C'est au tour de "+strNom+".");
                 boolean tour = true;
                 while(tour){
+                    if(joueur.getPa()==0){
+                        tour = false;
+                    }else if(joueur.getPv()==0){
+                        tour = false;
+                    }
                     System.out.println("Que souhaitez-vous faire ?");
                     String action = sc.nextLine();
 
                     switch (action) {
                         case "éteindre console":
                             game = false;
+                            break;
                         case "aller en haut":
                             carte.evaluerDeplacement(joueur, ville, action);
+                            break;
                         case "aller en bas":
                             carte.evaluerDeplacement(joueur, ville, action);
+                            break;
                         case "aller à gauche":
                             carte.evaluerDeplacement(joueur, ville, action);
+                            break;
                         case "aller à droite":
                             carte.evaluerDeplacement(joueur, ville, action);
+                            break;
                         case "fouiller":
                             carte.etreFouillee(joueur.getPositionx(), joueur.getPositiony(), joueur);
+                            break;
                         case "manger":
                             if (joueur.getNourri()== true){
                                 System.out.println("Vous avez déjà mangé.");  // Vérifier que le joueur n'a pas déjà mangé
@@ -98,23 +109,26 @@ public class Main {
                                 joueur.setPa(joueur.getPa()+6);                 // Gain des PA de la ration
                                 joueur.setNourri();                             // Dire que le joueur a mangé
                             }
-                        case "boire":
+                            break;
+                        case "boire à la gourde":
                             if (joueur.getBu()== true){                         // Vérifier que le joueur n'a pas déjà bu
                                 System.out.println("Vous avez déjà bu.");
                             } else {
                                 joueur.setPa(joueur.getPa()+6);                 // Gain des PA de la gourde
                                 joueur.setBu();                                 // Dire que le joueur a bu
                             }
+                            break;
                         case "boire boisson énergistante":
                             if (joueur.getAddiction().getTestAddiction() == true) {
                                 joueur.getAddiction().setCompteurDeTour(3);          // Si joueur addicte, réinitialisation de son compteur
                             } else {
                                 joueur.getAddiction().setTestAddiction(true);              // Si joueur non addicte, début d'addiction et gain de PA
                                 joueur.setPa(joueur.getPa()+4);
-                            }                           
+                            } 
+                            break;
                         case "tuer zombie":
                             joueur.setPa(joueur.getPa()-1);
-                            Case place = carte.getCase(joueur.getPositionx(),joueur.getPositiony()); // Correction du problème de syntaxe avec le double "case"
+                            Case place = carte.getCase(joueur.getPositionx(),joueur.getPositiony()); // Récupération de la case sur laquelle se situe le joueur
                             place.setZombie(place.getZombie()-1);
                             double perte = (Math.random()*(10-1)) + 1;              // Une chance sur 10 de perdre des PV dans l'attaque, perte de PA quand attaque une fois
                             if (perte<=0.9) {
@@ -122,30 +136,46 @@ public class Main {
                             else if (perte>0.9) {
                                 joueur.setPv(joueur.getPv()-10);
                                 System.out.println("Vous vous êtes pris un coup en retour!");
-                            }  
+                            }
+                            break;
                         case "observer une case":
                             Case emplacement = carte.getCase(joueur.getPositionx(),joueur.getPositiony());
                             System.out.println(emplacement.toString());
+                            break;
                         case "Maj carte":
                             carte.getVisuMap().maJ(carte.getCase(joueur.getPositionx(), joueur.getPositiony()));
+                            break;
                         case "prendre objet":
                             System.out.println("Que souhaitez-vous prendre ?");
                             String objet = sc.nextLine();
                             System.out.println("En quelle quantité ?");
                             int quantite = sc.nextInt();
                             carte.getCase(joueur.getPositionx(), joueur.getPositiony()).prendreObjet(joueur, quantite, objet);
-                        //rajouter les commandes de ce qui est vérifié dans la classe ville
+                            break;
+                        case "actionner porte":
+                            ville.evaluerActionVille(joueur, action);
+                            break;
+                        case "boire":
+                            ville.evaluerActionVille(joueur, action);
+                            break;
+                        case "deposer objet":
+                            ville.evaluerActionVille(joueur, action);
+                            break;
+                        case "demarrer nouveau chantier":
+                            ville.evaluerActionVille(joueur, action);
+                            break;
+                        case "travailler sur chantier":
+                            ville.evaluerActionVille(joueur, action);
+                            break;
+                        case "consulter entrepot":
+                            ville.evaluerActionVille(joueur, action);
+                            break;
                         case "fin de tour":
                             tour = false;
+                            break;
                         default:
                             System.out.println("Cette action n'est pas possible dans ce jeu. Veuillez réessayer");
-                            
-                        if(joueur.getPa()==0){
-                            tour = false;
-                        }else if(joueur.getPv()==0){
-                            tour = false;
-                        }
-                        
+                            break;
                     }
                 }
 
@@ -211,7 +241,7 @@ public class Main {
     public static void addiction(Joueur joueur) {
         if (joueur.getAddiction().getCompteurDeTour() == 0) {
             joueur.setPv(joueur.getPv() - 5);                         
-        } else if (joueur.getAddiction().getTestAddiction()) {        // Implicite que == true dans la rédaction
+        } else if (joueur.getAddiction().getTestAddiction()) {        // Si le joueur est addicte, on décompte un tour sans boisson énergisante 
             joueur.getAddiction().setCompteurDeTour(joueur.getAddiction().getCompteurDeTour() - 1); 
         }
     }

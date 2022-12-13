@@ -171,6 +171,7 @@ public class Carte {
                             player.deplacementBas();
                         }
                     }
+                    break;
                 case "aller en bas":
                     player.deplacementBas();
                      if((player.getPositionx()==12)&&(player.getPositiony()==12)){
@@ -180,6 +181,7 @@ public class Carte {
                             player.deplacementHaut();
                         }
                     }
+                    break;
                 case "aller à gauche":
                     player.deplacementGauche();
                      if((player.getPositionx()==12)&&(player.getPositiony()==12)){
@@ -189,6 +191,7 @@ public class Carte {
                             player.deplacementDroit();
                         }
                     }
+                    break;
                 case "aller à droite":
                     player.deplacementDroit();
                      if((player.getPositionx()==12)&&(player.getPositiony()==12)){
@@ -198,6 +201,7 @@ public class Carte {
                             player.deplacementGauche();
                         }
                     }
+                    break;
             }
         }
         

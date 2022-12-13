@@ -14,11 +14,17 @@ public class SacADos {
     
     private ArrayList<Objet> sac;
     
-    public void ajouterObjet(Objet objet){
+    public ArrayList<Objet> getSac(){
+        return this.sac;
+    }
+    
+    public boolean ajouterObjet(Objet objet){
         if(this.sac.size()==10){
             System.out.println("Votre sac est plein, vous ne pouvez plus prendre d'objet.");
+            return false;
         }else{
             this.sac.add(objet);
+            return true;
         }
     }
 
