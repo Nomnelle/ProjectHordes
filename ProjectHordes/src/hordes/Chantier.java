@@ -68,4 +68,23 @@ public class Chantier {
         this.nbMetal = i;
     }
     
+    public void aiderChantier(Joueur joueur, int quantitePA, Ville ville){
+        if(this.paRestant>=quantitePA){
+            if(joueur.getPa()>=quantitePA){
+                    joueur.setPa(joueur.getPa()-quantitePA);
+                    this.paRestant-=quantitePA;
+            }else{
+                this.paRestant-=joueur.getPa();
+                joueur.setPa(0);
+            }
+        }else{
+            joueur.setPa(joueur.getPa()-this.paRestant);
+            this.paRestant=0;
+            
+        }
+        if(this.paRestant<=0){
+            this.chantierFini=true;
+            ville.setNbZombieDefendable(ville.getNbZombieDefendable()+this.nbZombieResiste);
+        }
+    }
 }
