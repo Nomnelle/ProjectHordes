@@ -114,11 +114,12 @@ public class Main {
                             }                           
                         case "tuer zombie":
                             joueur.setPa(joueur.getPa()-1);
-                            // Rédiger le tuage de zombie
-                            int perte = (int)(Math.random()*(10-1)) + 1;              // Une chance sur 10 de perdre des PV dans l'attaque, perte de PA quand attaque une fois
-                            if (perte<9) {
+                            Case place = carte.getCase(joueur.getPositionx(),joueur.getPositiony()); // Correction du problème de syntaxe avec le double "case"
+                            place.setZombie(place.getZombie()-1);
+                            double perte = (Math.random()*(10-1)) + 1;              // Une chance sur 10 de perdre des PV dans l'attaque, perte de PA quand attaque une fois
+                            if (perte<=0.9) {
                                 System.out.println("Vous vous en sortez bien.");}
-                            else if (perte>10) {
+                            else if (perte>0.9) {
                                 joueur.setPv(joueur.getPv()-10);
                                 System.out.println("Vous vous êtes pris un coup en retour!");
                             }  
