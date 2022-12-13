@@ -127,7 +127,7 @@ public class Joueur {
         if (this.positiony == 0) {                 // Limites de la carte, définies pour chaque déplacements
             System.out.println("Avancer plus serait dangereux, vous devriez revenir sur vos pas");
         }else{
-            this.setPositiony(this.positiony - 1); // Déplacement des joueurs sur les axes x/y en fonction du sens du déplaczment
+            this.positiony-=1; // Déplacement des joueurs sur les axes x/y en fonction du sens du déplaczment
             this.pa -=1;
         }
     }
@@ -136,7 +136,7 @@ public class Joueur {
         if (this.positiony == 24) {
             System.out.println("Avancer plus loin serait risqué, vous feriez mieux de choisir une autre direction.");
         }else{
-            this.setPositiony(this.positiony + 1);
+            this.positiony += 1;
             this.pa -=1;
         }
     }
@@ -145,7 +145,7 @@ public class Joueur {
         if (this.positionx == 24) {
             System.out.println("Nous vous déconseillons d'aller plus loin, allez ailleurs.");
         }else{
-            this.setPositionx(this.positionx + 1);
+            this.positionx += 1;
             this.pa -=1;
         }
     }
@@ -154,7 +154,7 @@ public class Joueur {
         if (this.positionx == 0) {
             System.out.println("N'allez pas plus loin, les contrées avoisinantes sont trop inquiétantes.");
         }else{
-            this.setPositionx(this.positionx - 1);
+            this.positionx -= 1;
             this.pa -=1;
         }
     }

@@ -83,7 +83,7 @@ public class Main {
                     String strPosX = String.format("%d", joueur.getPositionx());
                     String strPosY = String.format("%d", joueur.getPositiony());
                     String nbZombie = String.format("%d", carte.getCase(joueur.getPositionx(), joueur.getPositiony()).getZombie());
-                    System.out.println("Vous êtes en ["+strPosX+", "+strPosY+"], et il y a "+nbZombie+"autour de vous.");
+                    System.out.println("Vous êtes en ["+strPosX+", "+strPosY+"], et il y a "+nbZombie+" zombie(s) autour de vous.");
                     System.out.println("Que souhaitez-vous faire ?");
                     String action = sc.nextLine();
 

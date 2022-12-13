@@ -154,10 +154,12 @@ public class Carte {
     }
     
     public void evaluerDeplacement(Joueur player, Ville ville, String direction){
-        if((player.getPositionx()==12)&&(player.getPositiony()==12)){
-                if(ville.getPorte() == true){
-                    System.out.println("Vous ne pouvez pas sortir de la ville, les portes sont fermées.");
-                }
+        if(player.getPositionx()==12){
+                if(player.getPositiony()==12){
+                    if(ville.getPorte() == true){
+                        System.out.println("Vous ne pouvez pas sortir de la ville, les portes sont fermées.");
+                    }
+                }   
         }else if(this.getCase(player.getPositionx(), player.getPositiony()).getZombie()>0){
             System.out.print("Vous êtes attaqué.e ! Vous ne pouvez pas quitter cet endroit tant que des zombies sont présents.");
         }else{

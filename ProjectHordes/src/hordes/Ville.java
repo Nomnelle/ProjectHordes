@@ -30,7 +30,7 @@ public class Ville extends Case{
         
         this.nourriture = 50;
         
-        this.porte = true;
+        this.porte = false;
         
         this.nbZombieDefendable = 20;
         this.setZombie(0);
@@ -112,7 +112,7 @@ public class Ville extends Case{
             switch(action){
                 case "actionner porte":
                     this.setPorte();
-                    if(this.porte){
+                    if(!(this.porte)){
                         System.out.println("La porte a été ouverte.");
                     }else{
                         System.out.println("La porte a été fermée.");
