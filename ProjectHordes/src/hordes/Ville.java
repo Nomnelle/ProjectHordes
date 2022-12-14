@@ -369,7 +369,7 @@ public class Ville extends Case{
         switch(objet){
             case "planche":
                 for(int i = 0;i<sac.getSac().size();i++){
-                    if(sac.getSac().get(i).equals("bois")){
+                    if("bois".equals(sac.getSac().get(i))){
                         possede +=1;
                     }
                 }
@@ -385,9 +385,9 @@ public class Ville extends Case{
                     }
                 }
                 break;
-                case "metal":
+                case "métal":
                     for(int i = 0;i<sac.getSac().size();i++){
-                        if(sac.getSac().get(i).equals("métal")){
+                        if("métal".equals(sac.getSac().get(i))){
                             possede +=1;
                         }
                     }
@@ -405,7 +405,7 @@ public class Ville extends Case{
                     break;
                 case "boisson":
                     for(int i = 0;i<sac.getSac().size();i++){
-                        if(sac.getSac().get(i).equals("boisson")){
+                        if("boisson".equals(sac.getSac().get(i))){
                             possede +=1;
                         }
                     }
@@ -423,7 +423,7 @@ public class Ville extends Case{
                     break;
                 case "ration" :
                     for(int i = 0;i<sac.getSac().size();i++){
-                        if(sac.getSac().get(i).equals("ration")){
+                        if("ration".equals(sac.getSac().get(i))){
                             possede +=1;
                         }
                     }
