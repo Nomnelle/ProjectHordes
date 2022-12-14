@@ -8,6 +8,7 @@ import hordes.Addiction;
 import hordes.Chantier;
 import hordes.Joueur;
 import hordes.Ville;
+import java.util.Random;
 
 /**
  *
@@ -39,6 +40,27 @@ public class Test {
         assert(chantier.getPaRestant()>0);
         assert(j.getPa()!=0);
         
+        Joueur[] tabJoueur = testVagueZombie1();
+        
+        int compteur = 0;
+        
+        for (Joueur tabJoueur1 : tabJoueur) {
+            if (tabJoueur1.getPv() == 0) {
+                compteur+=1;
+            }
+        }
+        
+        assert(compteur==2);
+        
+        tabJoueur = testVagueZombie1();
+        
+        compteur = 0;
+        
+        for (Joueur tabJoueur1 : tabJoueur) {
+            if (tabJoueur1.getPv() == 0) {
+                compteur+=1;
+            }
+        }
         
     }
     
@@ -191,5 +213,63 @@ public class Test {
         
         return(j2);
    }
-    
+   
+   public static Joueur[] testVagueZombie1(){
+       
+        Joueur j1 = new Joueur(0, "Bob");
+        Joueur j2 = new Joueur(1, "Tom");
+        Joueur j3 = new Joueur(2, "Tim");
+        Joueur j4 = new Joueur(3, "Liz");
+        
+        Joueur[] joueurs = new Joueur[4];
+        
+        joueurs[0] = j1;
+        joueurs[1] = j2;
+        joueurs[2] = j3;
+        joueurs[3] = j4;
+        
+        Ville ville = new Ville(12, 12);
+        ville.setPorte();
+        ville.setNbZombieDefendable(0);
+        
+        
+        if((ville.getNbZombieDefendable()<ville.genererZombie())||!(ville.getPorte())){
+            tuerJoueur(joueurs);
+        }
+        return(joueurs);   
+   }
+   
+    public static Joueur[] testVagueZombie2(){
+       
+        Joueur j1 = new Joueur(0, "Bob");
+        Joueur j2 = new Joueur(1, "Tom");
+        Joueur j3 = new Joueur(2, "Tim");
+        Joueur j4 = new Joueur(3, "Liz");
+        
+        Joueur[] joueurs = new Joueur[4];
+        
+        joueurs[0] = j1;
+        joueurs[1] = j2;
+        joueurs[2] = j3;
+        joueurs[3] = j4;
+        
+        Ville ville = new Ville(12, 12);
+        
+        
+        if((ville.getNbZombieDefendable()<ville.genererZombie())||!(ville.getPorte())){
+            tuerJoueur(joueurs);
+        }
+        return(joueurs);   
+   }
+   
+    public static void tuerJoueur(Joueur[] joueurs){
+        int taille = joueurs.length;
+        int moitie = (int) taille / 2;
+        Random ra = new Random();
+
+        for (int i = 0; i < moitie; i++) {
+            int indice = ra.nextInt(taille);
+            joueurs[indice].setPv(0);
+        }
+    }
 }

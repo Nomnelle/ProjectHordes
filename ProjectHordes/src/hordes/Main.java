@@ -216,7 +216,7 @@ public class Main {
                     System.out.println(journal+"sont morts car ils étaient hors de la ville.");
                         
                 }
-                if((ville.getNbZombieDefendable()<ville.genererZombie())||(ville.getPorte())){
+                if(!(ville.getPorte())||(ville.getNbZombieDefendable()<ville.genererZombie())){
                     tuerJoueur(listeJoueur);
                 }
             }
