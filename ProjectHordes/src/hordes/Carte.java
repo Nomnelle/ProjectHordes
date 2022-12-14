@@ -36,11 +36,7 @@ public class Carte {
     private void initialiseMap(){
         for(int i=0;i<COTE;i++){
             for(int j=0;j<COTE;j++){
-                if((j!=12)&&(i!=12)){
-                    this.map[i][j] = new Case(i,j);
-                }else{
-                    this.map[i][j] = (Ville) new Ville(i, j);
-                }
+                this.map[i][j] = new Case(i,j);
             }
         }
     }
@@ -136,7 +132,7 @@ public class Carte {
     
     public void etreFouillee(int x, int y, Joueur joueur){
         
-        boolean town = this.map[x][y] instanceof Ville;
+        boolean town = ((x == 12)&&(y==12));
         boolean dejaFouille = this.map[x][y].getFouille();
         
         if((!town)&&(!dejaFouille)){
@@ -154,9 +150,9 @@ public class Carte {
     }
     
     public void evaluerDeplacement(Joueur player, Ville ville, String direction){
-        if(player.getPositionx()==12){
+        if(ville.getPorte() == true){
                 if(player.getPositiony()==12){
-                    if(ville.getPorte() == true){
+                    if(player.getPositionx()==12){
                         System.out.println("Vous ne pouvez pas sortir de la ville, les portes sont fermées.");
                     }
                 }   

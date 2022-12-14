@@ -63,7 +63,7 @@ public class Ville extends Case{
         strBE = String.format("%d", this.boissonEnergisante);
         strRation = String.format("%d", this.nourriture);
         
-        return("Il y a "+strMet+" morceaux de métal, "+strBois+" planches de bois, "+strBE+" boissons énergisantes et "+ strRation+" dans l'entrepot.\n");
+        return("Il y a "+strMet+" morceaux de métal, "+strBois+" planches de bois, "+strBE+" boissons énergisantes et "+ strRation+" rations dans l'entrepot.\n");
 
     }
     

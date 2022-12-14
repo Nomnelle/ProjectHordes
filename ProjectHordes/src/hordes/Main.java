@@ -47,7 +47,8 @@ public class Main {
     public static String jeu(int nbJoueurs) {
 
         Carte carte = new Carte();
-        Ville ville = (Ville) carte.getCase(12, 12);
+        Ville ville =  new Ville(12,12);
+        boolean town = carte.getCase(0, 0) instanceof Ville;
 
         ArrayList<Joueur> listeJoueur = new ArrayList();
 
@@ -122,7 +123,7 @@ public class Main {
                                 joueur.setBu();                                 // Dire que le joueur a bu
                             }
                             break;
-                        case "boire boisson énergistante":
+                        case "boire boisson énergisante":
                             if (joueur.getAddiction().getTestAddiction() == true) {
                                 joueur.getAddiction().setCompteurDeTour(3);          // Si joueur addicte, réinitialisation de son compteur
                             } else {
@@ -142,7 +143,7 @@ public class Main {
                                 System.out.println("Vous vous êtes pris un coup en retour!");
                             }
                             break;
-                        case "observer une case":
+                        case "observer case":
                             Case emplacement = carte.getCase(joueur.getPositionx(),joueur.getPositiony());
                             System.out.println(emplacement.toString());
                             break;
@@ -228,13 +229,16 @@ public class Main {
             switch(compteur){
                 case 0:
                     System.out.println("Personne n'est mort à ce tour");
+                    break;
                 case 1:
                     journal += "est mort.e à ce tour.";
                     System.out.println(journal);
+                    break;
                 default:
                     String strCompteur = String.format("%d", compteur);
                     journal += ("sont morts à ce tour. Cela fait un total de "+strCompteur+" morts.");
                     System.out.println(journal);
+                    break;
             }
     }
     return(listeJoueur.get(0).getNomJoueur());      

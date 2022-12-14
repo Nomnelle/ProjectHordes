@@ -23,9 +23,14 @@ public class Case {
     public Case(int x_map, int y_map) {
         this.x = x_map;
         this.y = y_map;
-        this.zombie = calcZombie();
         
-        this.fouille = false;
+        if((x==12)&&(y==12)){
+            this.zombie = 0;
+            this.fouille = true;
+        }else{
+            this.zombie = calcZombie();
+            this.fouille = false;
+        }
     }
     
     public int getX(){
