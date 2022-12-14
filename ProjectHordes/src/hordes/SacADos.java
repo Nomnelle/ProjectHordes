@@ -12,13 +12,17 @@ import java.util.ArrayList;
  */
 public class SacADos {
     
-    private ArrayList<Objet> sac;
+    private ArrayList<String> sac;
     
-    public ArrayList<Objet> getSac(){
+    public SacADos(){
+        sac = new ArrayList();
+    }
+    
+    public ArrayList<String> getSac(){
         return this.sac;
     }
     
-    public boolean ajouterObjet(Objet objet){
+    public boolean ajouterObjet(String objet){
         if(this.sac.size()==10){
             System.out.println("Votre sac est plein, vous ne pouvez plus prendre d'objet.");
             return false;
@@ -28,7 +32,7 @@ public class SacADos {
         }
     }
 
-    public void retirerObjet(Objet objet){
+    public void retirerObjet(String objet){
         int index = this.sac.lastIndexOf(objet);
         if(index == -1){
             System.out.println("Cet objet ne fait pas partie de votre sac");

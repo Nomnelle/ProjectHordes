@@ -29,6 +29,7 @@ public class Carte {
         this.totMetal = 500;
         this.totBois = 1000;
         this.totBoissEner = 100;
+        this.visuMap = new Communication();
         
         initialiseMap();
     }

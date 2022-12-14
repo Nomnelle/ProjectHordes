@@ -14,7 +14,6 @@ public class Communication {
     
     public Communication(){
         this.visuMap = new String[Carte.COTE][Carte.COTE];
-        
         this.initComm();
     }
     
@@ -53,7 +52,7 @@ public class Communication {
             String strBois = String.format("%d", position.getBois());
             String strBoisson = String.format("%d", position.getBoissEner());
             
-            this.visuMap[position.getX()][position.getY()]=("P"+strBois+" M"+strMetal+" B"+strBoisson);
+            this.visuMap[position.getY()][position.getX()]=("P"+strBois+" M"+strMetal+" B"+strBoisson);
         }
     }
     

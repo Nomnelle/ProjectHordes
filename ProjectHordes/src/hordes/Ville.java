@@ -252,7 +252,7 @@ public class Ville extends Case{
                     if(quantite>this.bois){
                         for(int i=0;i<this.bois;i++){
                             SacADos sac = player.getSacADos();
-                            boolean added = sac.ajouterObjet(Objet.bois);
+                            boolean added = sac.ajouterObjet("bois");
                             if(added){
                                 this.bois -=1;
                             }
@@ -260,7 +260,7 @@ public class Ville extends Case{
                     }else{
                         for(int i=0;i<quantite;i++){
                             SacADos sac = player.getSacADos();
-                            boolean added = sac.ajouterObjet(Objet.bois);
+                            boolean added = sac.ajouterObjet("bois");
                             if(added){
                                 this.bois -=1;
                             }
@@ -275,7 +275,7 @@ public class Ville extends Case{
                     if(quantite>this.metal){
                         for(int i=0;i<this.metal;i++){
                             SacADos sac = player.getSacADos();
-                            boolean added = sac.ajouterObjet(Objet.metal);
+                            boolean added = sac.ajouterObjet("métal");
                             if(added){
                                 this.metal -=1;
                             }
@@ -283,7 +283,7 @@ public class Ville extends Case{
                     }else{
                         for(int i=0;i<quantite;i++){
                             SacADos sac = player.getSacADos();
-                            boolean added = sac.ajouterObjet(Objet.metal);
+                            boolean added = sac.ajouterObjet("métal");
                             if(added){
                                 this.metal -=1;
                             }
@@ -298,7 +298,7 @@ public class Ville extends Case{
                     if(quantite>this.boissonEnergisante){
                         for(int i=0;i<this.boissonEnergisante;i++){
                             SacADos sac = player.getSacADos();
-                            boolean added = sac.ajouterObjet(Objet.boisson);
+                            boolean added = sac.ajouterObjet("boisson");
                             if(added){
                                 this.boissonEnergisante -=1;
                             }
@@ -306,7 +306,7 @@ public class Ville extends Case{
                     }else{
                         for(int i=0;i<quantite;i++){
                             SacADos sac = player.getSacADos();
-                            boolean added = sac.ajouterObjet(Objet.boisson);
+                            boolean added = sac.ajouterObjet("boisson");
                             if(added){
                                 this.boissonEnergisante -=1;
                             }
@@ -321,7 +321,7 @@ public class Ville extends Case{
                     if(quantite>this.boissonEnergisante){
                         for(int i=0;i<this.boissonEnergisante;i++){
                             SacADos sac = player.getSacADos();
-                            boolean added = sac.ajouterObjet(Objet.boisson);
+                            boolean added = sac.ajouterObjet("ration");
                             if(added){
                                 this.boissonEnergisante -=1;
                             }
@@ -329,7 +329,7 @@ public class Ville extends Case{
                     }else{
                         for(int i=0;i<quantite;i++){
                             SacADos sac = player.getSacADos();
-                            boolean added = sac.ajouterObjet(Objet.boisson);
+                            boolean added = sac.ajouterObjet("ration");
                             if(added){
                                 this.boissonEnergisante -=1;
                             }
@@ -344,7 +344,7 @@ public class Ville extends Case{
                     System.out.println("Vous avez déjà eu votre ration d'eau aujourd'hui.");
                 }else{
                     SacADos sac = player.getSacADos();
-                    boolean added = sac.ajouterObjet(Objet.gourde);
+                    boolean added = sac.ajouterObjet("gourde");
                     if(added){
                         player.setBu();
                     }
@@ -362,65 +362,73 @@ public class Ville extends Case{
         switch(objet){
             case "planche":
                 for(int i = 0;i<sac.getSac().size();i++){
-                    if(sac.getSac().get(i)==Objet.bois){
+                    if(sac.getSac().get(i).equals("bois")){
                         possede +=1;
                     }
                 }
                 if(quantite>possede){
                     for(int i=0;i<possede;i++){
-                        sac.retirerObjet(Objet.bois);
+                        sac.retirerObjet("bois");
+                        this.bois +=1;
                     }
                 }else{
                     for(int i=0;i<quantite;i++){
-                        sac.retirerObjet(Objet.bois);
+                        sac.retirerObjet("bois");
+                        this.bois +=1;
                     }
                 }
                 break;
                 case "metal":
                     for(int i = 0;i<sac.getSac().size();i++){
-                        if(sac.getSac().get(i)==Objet.metal){
+                        if(sac.getSac().get(i).equals("métal")){
                             possede +=1;
                         }
                     }
                     if(quantite>possede){
                         for(int i=0;i<possede;i++){
-                            sac.retirerObjet(Objet.metal);
+                            sac.retirerObjet("métal");
+                            this.metal +=1;
                         }
                     }else{
                         for(int i=0;i<quantite;i++){
-                            sac.retirerObjet(Objet.metal);
+                            sac.retirerObjet("métal");
+                            this.metal +=1;
                         }
                     }
                     break;
                 case "boisson":
                     for(int i = 0;i<sac.getSac().size();i++){
-                        if(sac.getSac().get(i)==Objet.boisson){
+                        if(sac.getSac().get(i).equals("boisson")){
                             possede +=1;
                         }
                     }
                     if(quantite>possede){
                             for(int i=0;i<possede;i++){
-                                sac.retirerObjet(Objet.boisson);
+                                sac.retirerObjet("boisson");
+                                this.boissonEnergisante +=1;
                             }
                     }else{
                         for(int i=0;i<quantite;i++){
-                            sac.retirerObjet(Objet.boisson);
+                            sac.retirerObjet("boisson");
+                            this.boissonEnergisante +=1;
                         }
                     }
                     break;
                 case "ration" :
                     for(int i = 0;i<sac.getSac().size();i++){
-                        if(sac.getSac().get(i)==Objet.ration){
+                        if(sac.getSac().get(i).equals("ration")){
                             possede +=1;
                         }
                     }
                     if(quantite>possede){
                             for(int i=0;i<possede;i++){
-                                sac.retirerObjet(Objet.ration);
+                                sac.retirerObjet("ration");
+                                this.nourriture +=1;
                             }
                     }else{
                         for(int i=0;i<quantite;i++){
-                            sac.retirerObjet(Objet.ration);
+                            sac.retirerObjet("ration");
+                            this.nourriture +=1;
                         }
                     }
                     break;

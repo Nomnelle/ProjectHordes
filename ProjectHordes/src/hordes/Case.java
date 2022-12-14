@@ -104,7 +104,7 @@ public class Case {
                     if(quantite>this.bois){
                         for(int i=0;i<this.bois;i++){
                             SacADos sac = player.getSacADos();
-                            boolean added = sac.ajouterObjet(Objet.bois);
+                            boolean added = sac.ajouterObjet("bois");
                             if(added){
                                 this.bois -=1;
                             }
@@ -112,7 +112,7 @@ public class Case {
                     }else{
                         for(int i=0;i<quantite;i++){
                             SacADos sac = player.getSacADos();
-                            boolean added = sac.ajouterObjet(Objet.bois);
+                            boolean added = sac.ajouterObjet("bois");
                             if(added){
                                 this.bois -=1;
                             }
@@ -121,12 +121,13 @@ public class Case {
                 }else{
                     System.out.println("Il n'y a plus de bois à cet endroit.");
                 }
+                break;
                 case "metal":
                     if(this.metal >0){
                         if(quantite>this.metal){
                             for(int i=0;i<this.metal;i++){
                                 SacADos sac = player.getSacADos();
-                                boolean added = sac.ajouterObjet(Objet.metal);
+                                boolean added = sac.ajouterObjet("métal");
                                 if(added){
                                     this.metal -=1;
                                 }
@@ -134,7 +135,7 @@ public class Case {
                         }else{
                             for(int i=0;i<quantite;i++){
                                 SacADos sac = player.getSacADos();
-                                boolean added = sac.ajouterObjet(Objet.metal);
+                                boolean added = sac.ajouterObjet("métal");
                                 if(added){
                                     this.metal -=1;
                                 }
@@ -143,12 +144,13 @@ public class Case {
                     }else{
                         System.out.println("Il n'y a plus de métal à cet endroit.");
                     }
+                    break;
                 case "boisson":
                     if(this.boissonEnergisante > 0){
                         if(quantite>this.boissonEnergisante){
                             for(int i=0;i<this.boissonEnergisante;i++){
                                 SacADos sac = player.getSacADos();
-                                boolean added = sac.ajouterObjet(Objet.boisson);
+                                boolean added = sac.ajouterObjet("boisson");
                                 if(added){
                                     this.boissonEnergisante -=1;
                                 }
@@ -156,7 +158,7 @@ public class Case {
                         }else{
                             for(int i=0;i<quantite;i++){
                                 SacADos sac = player.getSacADos();
-                                boolean added = sac.ajouterObjet(Objet.boisson);
+                                boolean added = sac.ajouterObjet("boisson");
                                 if(added){
                                     this.boissonEnergisante -=1;
                                 }
@@ -165,8 +167,10 @@ public class Case {
                     }else{
                         System.out.println("Il n'y a plus de boisson énergisante à cet endroit.");
                     }
+                    break;
                 default:
-                    System.out.println("Il n'y a pas l'objet que vous souhaitez sur cette case.");   
+                    System.out.println("Il n'y a pas l'objet que vous souhaitez sur cette case.");
+                    break;
         }
     }
     

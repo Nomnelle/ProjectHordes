@@ -106,14 +106,6 @@ public class Joueur {
     public void setScore(int i) {
         this.score = i;
     }
-
-    private void setPositionx(int x) {
-        this.positionx = x;
-    }
-
-    private void setPositiony(int y) {
-        this.positiony = y;
-    }
     
     public void setNourri(){
         this.nourri = !(this.nourri);

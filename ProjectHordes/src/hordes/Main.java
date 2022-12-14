@@ -39,16 +39,13 @@ public class Main {
             }
         }
 
-        String gagnant = jeu(nbJoueurs);
-        System.out.println(gagnant+" a gagné !");
-
+        jeu(nbJoueurs);
     }
 
-    public static String jeu(int nbJoueurs) {
+    public static void jeu(int nbJoueurs) {
 
         Carte carte = new Carte();
         Ville ville =  new Ville(12,12);
-        boolean town = carte.getCase(0, 0) instanceof Ville;
 
         ArrayList<Joueur> listeJoueur = new ArrayList();
 
@@ -66,12 +63,11 @@ public class Main {
         Scanner sc = new Scanner(System.in);
         
         while(game){
-            for(int i = 0;i<nbJoueurs;i++){
-                if(listeJoueur.size()<=1){
+            if(listeJoueur.size()==1){
                     game = false;
-                }
+            }
+            for(int i = 0;i<nbJoueurs;i++){
                 joueur = listeJoueur.get(i);
-                System.out.print("\033[H\033[2J");
                 String strNom = String.format("%s",joueur.getNomJoueur());
                 System.out.println("C'est au tour de "+strNom+".");
                 boolean tour = true;
@@ -116,12 +112,17 @@ public class Main {
                             }
                             break;
                         case "boire à la gourde":
-                            if (joueur.getBu()== true){                         // Vérifier que le joueur n'a pas déjà bu
-                                System.out.println("Vous avez déjà bu.");
-                            } else {
-                                joueur.setPa(joueur.getPa()+6);                 // Gain des PA de la gourde
-                                joueur.setBu();                                 // Dire que le joueur a bu
+                            SacADos sac = joueur.getSacADos();
+                            int compteur = 0;
+                            for(i = 0;i<sac.getSac().size();i++){
+                                if(sac.getSac().get(i).equals("gourde")){
+                                    compteur +=1;
+                                }
                             }
+                            if(compteur>0){
+                                joueur.setPa(joueur.getPa()+6); // Gain des PA de la gourde
+                                sac.retirerObjet("gourde"); // supprimer la gourde
+                            }                         
                             break;
                         case "boire boisson énergisante":
                             if (joueur.getAddiction().getTestAddiction() == true) {
@@ -132,25 +133,32 @@ public class Main {
                             } 
                             break;
                         case "tuer zombie":
-                            joueur.setPa(joueur.getPa()-1);
-                            Case place = carte.getCase(joueur.getPositionx(),joueur.getPositiony()); // Récupération de la case sur laquelle se situe le joueur
-                            place.setZombie(place.getZombie()-1);
-                            double perte = (Math.random()*(10-1)) + 1;              // Une chance sur 10 de perdre des PV dans l'attaque, perte de PA quand attaque une fois
-                            if (perte<=0.9) {
-                                System.out.println("Vous vous en sortez bien.");}
-                            else if (perte>0.9) {
-                                joueur.setPv(joueur.getPv()-10);
-                                System.out.println("Vous vous êtes pris un coup en retour!");
+                            if(carte.getCase(joueur.getPositionx(),joueur.getPositiony()).getZombie()>0){
+                                joueur.setPa(joueur.getPa()-1);
+                                Case place = carte.getCase(joueur.getPositionx(),joueur.getPositiony()); // Récupération de la case sur laquelle se situe le joueur
+                                place.setZombie(place.getZombie()-1);
+                                double perte = (Math.random());              // Une chance sur 10 de perdre des PV dans l'attaque, perte de PA quand attaque une fois
+                                if (perte<=0.9) {
+                                    System.out.println("Vous vous en sortez bien.");}
+                                else{
+                                    joueur.setPv(joueur.getPv()-10);
+                                    System.out.println("Vous vous êtes pris un coup en retour!");
+                                }
+                            }else{
+                                    System.out.println("Il n'y a aucun zombie autour de vous.");
                             }
                             break;
                         case "observer case":
                             Case emplacement = carte.getCase(joueur.getPositionx(),joueur.getPositiony());
                             System.out.println(emplacement.toString());
                             break;
-                        case "Maj carte":
+                        case "MaJ carte":
                             carte.getVisuMap().maJ(carte.getCase(joueur.getPositionx(), joueur.getPositiony()));
                             break;
-                        case "prendre objet":
+                        case "voir carte":
+                            System.out.println(carte.getVisuMap().toString());
+                            break;
+                        case "looter":
                             System.out.println("Que souhaitez-vous prendre ?");
                             String objet = sc.nextLine();
                             System.out.println("En quelle quantité ?");
@@ -163,7 +171,9 @@ public class Main {
                         case "boire":
                             ville.evaluerActionVille(joueur, action);
                             break;
-                        case "deposer objet":
+                        case "prendre objet":
+                            ville.evaluerActionVille(joueur, action);
+                        case "deposer objet entrepot":
                             ville.evaluerActionVille(joueur, action);
                             break;
                         case "demarrer nouveau chantier":
@@ -240,10 +250,11 @@ public class Main {
                     System.out.println(journal);
                     break;
             }
-    }
-    return(listeJoueur.get(0).getNomJoueur());      
+            String gagnant = listeJoueur.get(0).getNomJoueur();
+            System.out.println(gagnant+" a gagné !");
+        }
 
-}
+    }
         
 
     public static void addiction(Joueur joueur) {
