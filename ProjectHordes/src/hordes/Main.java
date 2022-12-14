@@ -171,7 +171,7 @@ public class Main {
                         case "boire":
                             ville.evaluerActionVille(joueur, action);
                             break;
-                        case "prendre objet":
+                        case "prendre objet entrepot":
                             ville.evaluerActionVille(joueur, action);
                         case "deposer objet entrepot":
                             ville.evaluerActionVille(joueur, action);
@@ -250,9 +250,11 @@ public class Main {
                     System.out.println(journal);
                     break;
             }
-            String gagnant = listeJoueur.get(0).getNomJoueur();
-            System.out.println(gagnant+" a gagné !");
+            
         }
+        
+        String gagnant = listeJoueur.get(0).getNomJoueur();
+        System.out.println(gagnant+" a gagné !");
 
     }
         

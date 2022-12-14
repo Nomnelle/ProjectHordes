@@ -126,12 +126,19 @@ public class Ville extends Case{
                         System.out.println("Vous n'avez plus besoin de boire pour aujourd'hui.");
                     }
                     break;
-                case "deposer objet":
+                case "deposer objet entrepot":
                     System.out.println("Quel objet voulez-vous déposer ? Entrez son nom.");
                     String objet = sc.nextLine();
                     System.out.println("En quelle quantité ? Entrez un numérique.");
                     int quantite = sc.nextInt();
                     this.deposerObjet(player, quantite, objet);
+                    break;
+                case "prendre objet entrepot":
+                    System.out.println("Quel objet voulez-vous déposer ? Entrez son nom.");
+                    objet = sc.nextLine();
+                    System.out.println("En quelle quantité ? Entrez un numérique.");
+                    quantite = sc.nextInt();
+                    this.prendreObjet(player, quantite, objet);
                     break;
                 case "demarrer nouveau chantier":
                     System.out.println("Quel chantier voulez-vous démarrer ? Entrez son nom.");
