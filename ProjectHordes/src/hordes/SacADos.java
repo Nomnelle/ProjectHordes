@@ -22,6 +22,18 @@ public class SacADos {
         return this.sac;
     }
     
+    @Override
+    public String toString(){
+       String result = "";
+       
+       for(int i=0;i<this.sac.size();i++){
+           result+=(this.sac.get(i)+" ");
+       }
+       
+       return result;
+       
+    }
+    
     public boolean ajouterObjet(String objet){
         if(this.sac.size()==10){
             System.out.println("Votre sac est plein, vous ne pouvez plus prendre d'objet.");

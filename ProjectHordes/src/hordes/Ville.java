@@ -257,21 +257,31 @@ public class Ville extends Case{
             case "planche":
                 if(this.bois >0){
                     if(quantite>this.bois){
+                        int  pris = this.bois;
                         for(int i=0;i<this.bois;i++){
                             SacADos sac = player.getSacADos();
                             boolean added = sac.ajouterObjet("bois");
                             if(added){
                                 this.bois -=1;
+                            }else{
+                                pris-=1;
                             }
                         }
+                        String strBois = String.format("%d", pris);
+                        System.out.println(strBois+" planche(s) ont été prises de l'entrepôt.");
                     }else{
+                        int  pris = quantite;
                         for(int i=0;i<quantite;i++){
                             SacADos sac = player.getSacADos();
                             boolean added = sac.ajouterObjet("bois");
                             if(added){
                                 this.bois -=1;
+                            }else{
+                                pris-=1;
                             }
                         }
+                        String strBois = String.format("%d", pris);
+                        System.out.println(strBois+" planche(s) ont été prises de l'entrepôt.");
                     }
                 }else{
                     System.out.println("Il n'y a plus de bois dans l'entrepot.");
@@ -280,21 +290,31 @@ public class Ville extends Case{
             case "metal":
                 if(this.metal >0){
                     if(quantite>this.metal){
+                        int pris = this.metal;
                         for(int i=0;i<this.metal;i++){
                             SacADos sac = player.getSacADos();
                             boolean added = sac.ajouterObjet("métal");
                             if(added){
                                 this.metal -=1;
+                            }else{
+                                pris-=1;
                             }
                         }
+                        String strMetal = String.format("%d", pris);
+                        System.out.println(strMetal+" morceau(x) de métal ont été pris de l'entrepôt.");
                     }else{
+                        int pris = quantite;
                         for(int i=0;i<quantite;i++){
                             SacADos sac = player.getSacADos();
                             boolean added = sac.ajouterObjet("métal");
                             if(added){
                                 this.metal -=1;
+                            }else{
+                                pris-=1;
                             }
                         }
+                        String strMetal = String.format("%d", pris);
+                        System.out.println(strMetal+" morceau(x) de métal ont été pris de l'entrepôt.");
                     }
                 }else{
                     System.out.println("Il n'y a plus de métal dans l'entrepot.");
@@ -303,34 +323,44 @@ public class Ville extends Case{
             case "boisson":
                 if(this.boissonEnergisante > 0){
                     if(quantite>this.boissonEnergisante){
+                        int pris = quantite;
                         for(int i=0;i<this.boissonEnergisante;i++){
                             SacADos sac = player.getSacADos();
                             boolean added = sac.ajouterObjet("boisson");
                             if(added){
                                 this.boissonEnergisante -=1;
+                            }else{
+                                pris-=1;
                             }
                         }
+                        String strBoisson = String.format("%d", pris);
+                        System.out.println(strBoisson+" boisson(s) énergisante(s) ont été pris de l'entrepôt.");
                     }else{
+                        int pris = quantite;
                         for(int i=0;i<quantite;i++){
                             SacADos sac = player.getSacADos();
                             boolean added = sac.ajouterObjet("boisson");
                             if(added){
                                 this.boissonEnergisante -=1;
+                            }else{
+                                pris-=1;
                             }
                         }
+                        String strBoisson = String.format("%d", pris);
+                        System.out.println(strBoisson+" boisson(s) énergisante(s) ont été pris de l'entrepôt.");
                     }
                 }else{
                     System.out.println("Il n'y a plus de boisson énergisante dans l'entrepot.");
                 }
                 break;
             case "ration":
-                if(this.boissonEnergisante > 0){
-                    if(quantite>this.boissonEnergisante){
-                        for(int i=0;i<this.boissonEnergisante;i++){
+                if(this.nourriture > 0){
+                    if(quantite>this.nourriture){
+                        for(int i=0;i<this.nourriture;i++){
                             SacADos sac = player.getSacADos();
                             boolean added = sac.ajouterObjet("ration");
                             if(added){
-                                this.boissonEnergisante -=1;
+                                this.nourriture -=1;
                             }
                         }
                     }else{
@@ -338,7 +368,7 @@ public class Ville extends Case{
                             SacADos sac = player.getSacADos();
                             boolean added = sac.ajouterObjet("ration");
                             if(added){
-                                this.boissonEnergisante -=1;
+                                this.nourriture -=1;
                             }
                         }
                     }
@@ -354,6 +384,9 @@ public class Ville extends Case{
                     boolean added = sac.ajouterObjet("gourde");
                     if(added){
                         player.setBu();
+                        System.out.println("Vous avez pris une gourde.");
+                    }else{
+                        System.out.println("Votre sac est plein, vous n'avez pas pu prendre la gourde.");
                     }
                 }
                 break;
@@ -378,11 +411,15 @@ public class Ville extends Case{
                         sac.retirerObjet("bois");
                         this.bois +=1;
                     }
+                    String strQuant = String.format("%d", possede);
+                    System.out.println(strQuant+" planche(s) de bois ont été déposée(s) dans l'entrepôt.");
                 }else{
                     for(int i=0;i<quantite;i++){
                         sac.retirerObjet("bois");
                         this.bois +=1;
                     }
+                    String strQuant = String.format("%d", quantite);
+                    System.out.println(strQuant+" planche(s) de bois ont été déposée(s) dans l'entrepôt.");
                 }
                 break;
                 case "métal":
@@ -395,12 +432,16 @@ public class Ville extends Case{
                         for(int i=0;i<possede;i++){
                             sac.retirerObjet("métal");
                             this.metal +=1;
+                            String strQuant = String.format("%d", possede);
+                            System.out.println(strQuant+" morceau(x) de métal ont été déposé(s) dans l'entrepôt.");
                         }
                     }else{
                         for(int i=0;i<quantite;i++){
                             sac.retirerObjet("métal");
                             this.metal +=1;
                         }
+                        String strQuant = String.format("%d", quantite);
+                        System.out.println(strQuant+" morceau(x) de métal ont été déposé(s) dans l'entrepôt.");
                     }
                     break;
                 case "boisson":
@@ -410,15 +451,19 @@ public class Ville extends Case{
                         }
                     }
                     if(quantite>possede){
-                            for(int i=0;i<possede;i++){
-                                sac.retirerObjet("boisson");
-                                this.boissonEnergisante +=1;
-                            }
+                        for(int i=0;i<possede;i++){
+                            sac.retirerObjet("boisson");
+                            this.boissonEnergisante +=1;
+                        }
+                        String strQuant = String.format("%d", possede);
+                        System.out.println(strQuant+" boisson(s) énergisante(s) ont été déposée(s) dans l'entrepôt.");
                     }else{
                         for(int i=0;i<quantite;i++){
                             sac.retirerObjet("boisson");
                             this.boissonEnergisante +=1;
                         }
+                        String strQuant = String.format("%d", quantite);
+                        System.out.println(strQuant+" boisson(s) énergisante(s) ont été déposée(s) dans l'entrepôt.");
                     }
                     break;
                 case "ration" :
@@ -428,15 +473,19 @@ public class Ville extends Case{
                         }
                     }
                     if(quantite>possede){
-                            for(int i=0;i<possede;i++){
-                                sac.retirerObjet("ration");
-                                this.nourriture +=1;
-                            }
+                        for(int i=0;i<possede;i++){
+                            sac.retirerObjet("ration");
+                            this.nourriture +=1;
+                        }
+                        String strQuant = String.format("%d", possede);
+                        System.out.println(strQuant+" ration(s) ont été déposée(s) dans l'entrepôt.");
                     }else{
                         for(int i=0;i<quantite;i++){
                             sac.retirerObjet("ration");
                             this.nourriture +=1;
                         }
+                        String strQuant = String.format("%d", quantite);
+                        System.out.println(strQuant+" ration(s) ont été déposée(s) dans l'entrepôt.");
                     }
                     break;
                 default:

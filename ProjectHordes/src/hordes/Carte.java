@@ -141,6 +141,7 @@ public class Carte {
             this.map[x][y].setBois(this.calBois());
             this.map[x][y].setBoissEner(this.calcBoissEner());
             this.map[x][y].setFouille();
+            System.out.println("Vous fouillez la zone.");
             joueur.setPa(joueur.getPa()-1);
         } else if(town){
             System.out.println("Il est inutile de fouiller la ville...");
@@ -151,14 +152,10 @@ public class Carte {
     }
     
     public void evaluerDeplacement(Joueur player, Ville ville, String direction){
-        if(ville.getPorte() == true){
-                if(player.getPositiony()==12){
-                    if(player.getPositionx()==12){
-                        System.out.println("Vous ne pouvez pas sortir de la ville, les portes sont fermées.");
-                    }
-                }   
+        if((ville.getPorte() == true)&&(player.getPositiony()==12)&&(player.getPositionx()==12)){
+            System.out.println("Vous ne pouvez pas sortir de la ville, les portes sont fermées.");
         }else if(this.getCase(player.getPositionx(), player.getPositiony()).getZombie()>0){
-            System.out.print("Vous êtes attaqué.e ! Vous ne pouvez pas quitter cet endroit tant que des zombies sont présents.");
+            System.out.print("Vous êtes cerné ! Vous ne pouvez pas quitter cet endroit tant que des zombies sont présents.");
         }else{
             switch(direction){
                 case "aller en haut":

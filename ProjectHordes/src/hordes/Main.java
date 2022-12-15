@@ -13,6 +13,9 @@ import java.util.Scanner;
  * @author nomnelle
  */
 public class Main {
+    
+    public static int compteurMorts = 0;
+    public static ArrayList<String> listeMort = new ArrayList();
 
     public static void main(String[] args) {
 
@@ -72,11 +75,6 @@ public class Main {
                 System.out.println("C'est au tour de "+strNom+".");
                 boolean tour = true;
                 while(tour){
-                    if(joueur.getPa()==0){
-                        tour = false;
-                    }else if(joueur.getPv()==0){
-                        tour = false;
-                    }
                     String strPosX = String.format("%d", joueur.getPositionx());
                     String strPosY = String.format("%d", joueur.getPositiony());
                     String nbZombie = String.format("%d", carte.getCase(joueur.getPositionx(), joueur.getPositiony()).getZombie());
@@ -137,7 +135,7 @@ public class Main {
                                 joueur.setPa(joueur.getPa()-1);
                                 Case place = carte.getCase(joueur.getPositionx(),joueur.getPositiony()); // Récupération de la case sur laquelle se situe le joueur
                                 place.setZombie(place.getZombie()-1);
-                                double perte = (Math.random());              // Une chance sur 10 de perdre des PV dans l'attaque, perte de PA quand attaque une fois
+                                double perte = Math.random()+1;              // Une chance sur 10 de perdre des PV dans l'attaque, perte de PA quand attaque une fois
                                 if (perte<=0.9) {
                                     System.out.println("Vous vous en sortez bien.");}
                                 else{
@@ -192,35 +190,23 @@ public class Main {
                             System.out.println("Cette action n'est pas possible dans ce jeu. Veuillez réessayer");
                             break;
                     }
+                    System.out.println(listeJoueur.size());
+                    if(joueur.getPa()==0){
+                        tour = false;
+                    }else if(joueur.getPv()==0){
+                        tour = false;
+                        updateMorts(listeJoueur);
+                    }      
                 }
+                if(listeJoueur.size()<=1){
+                    game = false;
+                    break;
+                } 
 
             }   
             
             carte.setTour(carte.getTour()+1);
-            int compteur = 0;
             String journal = "";
-            
-            if(carte.getTour()==13){
-                for(Joueur j:listeJoueur){
-                    if((!(j.getPositiony()==12))||(!(j.getPositionx()==12))){
-                        if(listeJoueur.size()<=1){
-                            game = false;
-                            break;
-                        }else{
-                            journal += j.getNomJoueur();
-                        }
-                        
-                    }
-                }
-                 if(!(journal.equals(""))){
-                    System.out.println(journal+"sont morts car ils étaient hors de la ville.");
-                        
-                }
-                if(!(ville.getPorte())||(ville.getNbZombieDefendable()<ville.genererZombie())){
-                    tuerJoueur(listeJoueur);
-                }
-            }
-   
             
             for(Joueur j:listeJoueur){
                 j.setBu();
@@ -229,32 +215,53 @@ public class Main {
                 if(j.getAddiction().getTestAddiction()){
                     addiction(j);
                 }
-                if(j.getPv()==0){
-                    compteur += 1;
-                    journal += j.getNomJoueur()+" ";
-                    listeJoueur.remove(j);
-                }  
             }
             
-            switch(compteur){
+            if(carte.getTour()==13){
+                for(Joueur j:listeJoueur){
+                    if((!(j.getPositiony()==12))||(!(j.getPositionx()==12))){
+                        j.setPv(0);
+                        updateMorts(listeJoueur);
+                        if(listeJoueur.size()<=1){
+                            game = false;
+                            break;
+                        }
+                    }
+                }
+                 if(!(journal.equals(""))){
+                    System.out.println(journal+"sont morts car ils étaient hors de la ville.");
+                        
+                }
+                if(!(ville.getPorte())||(ville.getNbZombieDefendable()<ville.genererZombie())){
+                    tuerJoueur(listeJoueur);
+                    updateMorts(listeJoueur);
+                }
+                
+                switch(compteurMorts){
                 case 0:
                     System.out.println("Personne n'est mort à ce tour");
                     break;
                 case 1:
-                    journal += "est mort.e à ce tour.";
+                    journal += listeMort.get(0);
+                    journal += " est mort.e à ce tour.";
                     System.out.println(journal);
                     break;
                 default:
-                    String strCompteur = String.format("%d", compteur);
-                    journal += ("sont morts à ce tour. Cela fait un total de "+strCompteur+" morts.");
+                    String strCompteur = String.format("%d", compteurMorts);
+                    journal += (strCompteur+" personnes sont mortes à ce tour.");
                     System.out.println(journal);
                     break;
+                }
+                compteurMorts = 0;
             }
             
         }
-        
-        String gagnant = listeJoueur.get(0).getNomJoueur();
-        System.out.println(gagnant+" a gagné !");
+        if(listeJoueur.size()==1){
+            String gagnant = listeJoueur.get(0).getNomJoueur();
+            System.out.println(gagnant+" a gagné !");
+        }else{
+            System.out.println("Tout le monde est mort. Better luck next time :)");
+        }
 
     }
         
@@ -277,5 +284,15 @@ public class Main {
             int indice = ra.nextInt(taille);
             listeJoueur.get(indice).setPv(0);
         }
+    }
+    
+    public static void updateMorts(ArrayList <Joueur> listeJoueur){
+        for(Joueur j:listeJoueur){
+                if(j.getPv()==0){
+                    compteurMorts += 1;
+                    listeMort.add(j.getNomJoueur());
+                    listeJoueur.remove(j);
+                }  
+            }
     }
 }
