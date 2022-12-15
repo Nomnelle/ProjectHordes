@@ -32,9 +32,9 @@ public class Main {
                 + "| '--------------' || '--------------' || '--------------' || '--------------' || '--------------' || '--------------' |\n"
                 + " '----------------'  '----------------'  '----------------'  '----------------'  '----------------'  '----------------'");
         int nbJoueurs = 0;
-        while (nbJoueurs < 2 || nbJoueurs > 20) {
+        while (nbJoueurs < 2 || nbJoueurs > 20) {   //obligation de déclarer minimum 2 joueurs, et maximum 20 joueurs
             System.out.println("Veuillez entrer le nombre de joueurs :");
-            nbJoueurs = sc.nextInt();
+            nbJoueurs = sc.nextInt();               
             if (nbJoueurs > 20) {
                 System.out.println("20 joueurs maximum. Rentrez une autre valeur.");
             } else if (nbJoueurs < 2) {
@@ -50,53 +50,54 @@ public class Main {
         Carte carte = new Carte();
         Ville ville =  new Ville(12,12);
 
-        ArrayList<Joueur> listeJoueur = new ArrayList();
+        ArrayList<Joueur> listeJoueur = new ArrayList();  //sauvegarde des différents joueurs dans une liste
 
         for (int i = 0; i < nbJoueurs; i++) {
             Scanner sc = new Scanner(System.in);
             String strId = String.format("%d", i);
             System.out.println("Joueur " + strId + ", rentrez votre nom :");
-            String nom = sc.nextLine();
-            Joueur j = new Joueur(i, nom);
-            listeJoueur.add(j);
+            String nom = sc.nextLine();                  //on récupère le nom de chaque joueurs les uns après les autres
+            Joueur j = new Joueur(i, nom);             //on crée le joueur avec le nom et l'ID
+            listeJoueur.add(j);                        //on ajoute le joueur dans la liste
         }
 
         boolean game = true;
         Joueur joueur;
         Scanner sc = new Scanner(System.in);
+        String strPa = "";
         
-        while(game){
-            if(listeJoueur.size()==1){
-                    game = false;
-            }
-            for(int i = 0;i<nbJoueurs;i++){
+        while(game){                                   //tant que le jeu est en marche
+            for(int i = 0;i<listeJoueur.size();i++){            //on fait joueur chaque joueur chacun son tour
                 joueur = listeJoueur.get(i);
                 String strNom = String.format("%s",joueur.getNomJoueur());
                 System.out.println("C'est au tour de "+strNom+".");
+                journalPosition(joueur, carte);
                 boolean tour = true;
-                while(tour){
-                    String strPosX = String.format("%d", joueur.getPositionx());
-                    String strPosY = String.format("%d", joueur.getPositiony());
-                    String nbZombie = String.format("%d", carte.getCase(joueur.getPositionx(), joueur.getPositiony()).getZombie());
-                    System.out.println("Vous êtes en ["+strPosX+", "+strPosY+"], et il y a "+nbZombie+" zombie(s) autour de vous.");
+                while(tour){                          //tant que c'est au tour du joueur
+                    strPa = String.format("%d", joueur.getPa());
+                    System.out.println("Il vous reste"+strPa+" actions à réaliser.");
                     System.out.println("Que souhaitez-vous faire ?");
-                    String action = sc.nextLine();
+                    String action = sc.nextLine();    //on récupère les actions du joueur
 
                     switch (action) {
-                        case "éteindre console":
-                            game = false;
+                        case "regarder sac":
+                            System.out.println(joueur.getSacADos().toString()); 
                             break;
                         case "aller en haut":
                             carte.evaluerDeplacement(joueur, ville, action);
+                            journalPosition(joueur, carte);
                             break;
                         case "aller en bas":
                             carte.evaluerDeplacement(joueur, ville, action);
+                            journalPosition(joueur, carte);
                             break;
                         case "aller à gauche":
                             carte.evaluerDeplacement(joueur, ville, action);
+                            journalPosition(joueur, carte);
                             break;
                         case "aller à droite":
                             carte.evaluerDeplacement(joueur, ville, action);
+                            journalPosition(joueur, carte);
                             break;
                         case "fouiller":
                             carte.etreFouillee(joueur.getPositionx(), joueur.getPositiony(), joueur);
@@ -113,13 +114,16 @@ public class Main {
                             SacADos sac = joueur.getSacADos();
                             int compteur = 0;
                             for(i = 0;i<sac.getSac().size();i++){
-                                if(sac.getSac().get(i).equals("gourde")){
-                                    compteur +=1;
+                                if(sac.getSac().get(i).equals("gourde")){ //si jamais l'utilisateur a une gourde dans son sac
+                                    compteur +=1;                                      //on augmente le compteur de 1
                                 }
                             }
                             if(compteur>0){
                                 joueur.setPa(joueur.getPa()+6); // Gain des PA de la gourde
                                 sac.retirerObjet("gourde"); // supprimer la gourde
+                                System.out.println("*Glou, glou, glou*");
+                            }else{
+                                System.out.println("Vous n'avez pas de gourde dans votre sac.");
                             }                         
                             break;
                         case "boire boisson énergisante":
@@ -157,10 +161,10 @@ public class Main {
                             System.out.println(carte.getVisuMap().toString());
                             break;
                         case "looter":
-                            System.out.println("Que souhaitez-vous prendre ?");
-                            String objet = sc.nextLine();
-                            System.out.println("En quelle quantité ?");
-                            int quantite = sc.nextInt();
+                            System.out.println("Que souhaitez-vous prendre ?");    
+                            String objet = sc.nextLine();                             //Le joueur entre l'objet qu'il souhaite récupérer
+                            System.out.println("En quelle quantité ?");           
+                            int quantite = sc.nextInt();                              //Ainsi que la quantité qu'il souhaite récupérer
                             carte.getCase(joueur.getPositionx(), joueur.getPositiony()).prendreObjet(joueur, quantite, objet);
                             break;
                         case "actionner porte":
@@ -190,39 +194,40 @@ public class Main {
                             System.out.println("Cette action n'est pas possible dans ce jeu. Veuillez réessayer");
                             break;
                     }
-                    System.out.println(listeJoueur.size());
                     if(joueur.getPa()==0){
-                        tour = false;
+                        tour = false;            // si le joueur n'a plus de PA, fin de tour
                     }else if(joueur.getPv()==0){
-                        tour = false;
+                        tour = false;            // si le joueur a plus de pv, fin de tour
                         updateMorts(listeJoueur);
                     }      
                 }
-                if(listeJoueur.size()<=1){
+                if(listeJoueur.size()<=1){      // si la liste de joueur ne contient au plus qu'un joueur, le jeu se termine
                     game = false;
                     break;
                 } 
 
             }   
             
-            carte.setTour(carte.getTour()+1);
+            carte.setTour(carte.getTour()+1);     //on incrémente le nombre de tour de 1
             String journal = "";
             
             for(Joueur j:listeJoueur){
-                j.setBu();
-                j.setNourri();
-                j.setPa(j.getPa()+4);
+                j.setPa(j.getPa()+4);           //les joueurs récupèrent 4 PA
                 if(j.getAddiction().getTestAddiction()){
                     addiction(j);
                 }
             }
             
-            if(carte.getTour()==13){
+            if(carte.getTour()==13){          //à la fin du 12e tour
                 for(Joueur j:listeJoueur){
+                    if(j.getBu())
+                        j.setBu();            //joueurs peuvent de nouveau boire s'ils avaient bu
+                    if(j.getNourri())
+                        j.setNourri();            //joueurs peuvent de nouveau manger s'ils avaient mangé
                     if((!(j.getPositiony()==12))||(!(j.getPositionx()==12))){
-                        j.setPv(0);
+                        j.setPv(0);             //s'ils sont en dehors de la ville, les joueurs meurent
                         updateMorts(listeJoueur);
-                        if(listeJoueur.size()<=1){
+                        if(listeJoueur.size()<=1){      // si la liste de joueur ne contient au plus qu'un joueur, le jeu se termine
                             game = false;
                             break;
                         }
@@ -235,9 +240,13 @@ public class Main {
                 if(!(ville.getPorte())||(ville.getNbZombieDefendable()<ville.genererZombie())){
                     tuerJoueur(listeJoueur);
                     updateMorts(listeJoueur);
+                    if(listeJoueur.size()<=1){      // si la liste de joueur ne contient au plus qu'un joueur, le jeu se termine
+                            game = false;
+                            break;
+                    }
                 }
                 
-                switch(compteurMorts){
+                switch(compteurMorts){                                     //en fonction du nombre de mort à ce tour, le message change
                 case 0:
                     System.out.println("Personne n'est mort à ce tour");
                     break;
@@ -256,10 +265,10 @@ public class Main {
             }
             
         }
-        if(listeJoueur.size()==1){
+        if(listeJoueur.size()==1){                                     //s'il reste un joueur en vie, il est déclaré gagnant
             String gagnant = listeJoueur.get(0).getNomJoueur();
             System.out.println(gagnant+" a gagné !");
-        }else{
+        }else{                                                        //si les derniers joueurs sont morts en même temps (ex:hors ville), pas de gagnant
             System.out.println("Tout le monde est mort. Better luck next time :)");
         }
 
@@ -288,11 +297,18 @@ public class Main {
     
     public static void updateMorts(ArrayList <Joueur> listeJoueur){
         for(Joueur j:listeJoueur){
-                if(j.getPv()==0){
+                if(j.getPv()==0){                                   //si un joueur n'a plus de pv, on sauvegarde son nom, et on le retire de la liste des joueurs en jeu
                     compteurMorts += 1;
                     listeMort.add(j.getNomJoueur());
                     listeJoueur.remove(j);
                 }  
             }
+    }
+    
+    public static void journalPosition(Joueur joueur, Carte carte){
+        String strPosX = String.format("%d", joueur.getPositionx());
+        String strPosY = String.format("%d", joueur.getPositiony());
+        String nbZombie = String.format("%d", carte.getCase(joueur.getPositionx(), joueur.getPositiony()).getZombie());
+        System.out.println("Vous êtes en ["+strPosX+", "+strPosY+"], et il y a "+nbZombie+" zombie(s) autour de vous.");    //affiche position et nb de zombies autour du joueur
     }
 }
