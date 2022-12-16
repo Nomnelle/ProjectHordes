@@ -13,11 +13,11 @@ import java.util.Scanner;
  */
 public class Ville extends Case{ //Ville hérite de Case pour avoir des fonctions en commun avec cette dernière + ses fonctions particulières
     
-    private int nbZombieDefendable; //nombre de zombie
-    private int minimumZombie; //n
-    private int nourriture; //nombre
-    private boolean porte;
-    private Chantier[] tabChantier;
+    private int nbZombieDefendable; //nombre de zombie qu'il est possible résister lors d'une attaque
+    private int minimumZombie; //nombre de zombie minimum de zombie 
+    private int nourriture; //nombre de nourriture
+    private boolean porte; //vrai si la porte est ouverte
+    private Chantier[] tabChantier; //tableau des noms des différentes constructions ainsi que le nombre de PA, de zombie, de planche et de métal associé
     
     //constructeur
         public Ville(int x_map, int y_map) {
@@ -98,7 +98,7 @@ public class Ville extends Case{ //Ville hérite de Case pour avoir des fonction
     public void setPorte(){
         this.porte = !(this.porte);
     }
-        
+    //fonction qui génère des zombies
     public int genererZombie(){
         Random ra = new Random();
         int nbZombie = this.minimumZombie + ra.nextInt(11);

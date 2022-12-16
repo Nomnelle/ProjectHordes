@@ -13,7 +13,7 @@ public class Chantier {
     private final String nomChantier; //nom du chantier
     private boolean chantierFini; //si boolean=vrai, alors le chantier est finit
     private int paRestant; //nombre de PA 
-    private final int nbZombieResiste; //nombre de Zombie pouvant résister
+    private final int nbZombieResiste; //nombre de Zombie qu'une construction peut supporter
     private int nbPlanche; //nombre de planche
     private int nbMetal; //nombre de métal
     
