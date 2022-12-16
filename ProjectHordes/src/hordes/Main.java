@@ -139,7 +139,7 @@ public class Main {
                                 joueur.setPa(joueur.getPa()-1);
                                 Case place = carte.getCase(joueur.getPositionx(),joueur.getPositiony()); // Récupération de la case sur laquelle se situe le joueur
                                 place.setZombie(place.getZombie()-1);
-                                double perte = Math.random()+1;              // Une chance sur 10 de perdre des PV dans l'attaque, perte de PA quand attaque une fois
+                                double perte = Math.random();              // Une chance sur 10 de perdre des PV dans l'attaque, perte de PA quand attaque une fois
                                 if (perte<=0.9) {
                                     System.out.println("Vous vous en sortez bien.");}
                                 else{

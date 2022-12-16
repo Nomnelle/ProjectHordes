@@ -106,22 +106,22 @@ public class Case {
         switch(objet){                   //pour éviter que le joueur essaye de prendre un objet qui n'existe pas dans le jeu
             case "planche": 
                 if(this.bois >0){
-                    if(quantite>this.bois){
-                        int  pris = this.bois;
-                        for(int i=0;i<this.bois;i++){
+                    if(quantite>this.bois){ //s'il y a moins de bois que ce que le joueur demande
+                        int  pris = this.bois; //pour affichage
+                        for(int i=0;i<this.bois;i++){ //le joueur, s'il le peut, prendra tout le bois présent sur la case
                             SacADos sac = player.getSacADos();
-                            boolean added = sac.ajouterObjet("bois");
-                            if(added){
-                                this.bois -=1;
+                            boolean added = sac.ajouterObjet("bois"); //on vérifie si le joueur a pu prendre le bois
+                            if(added){ 
+                                this.bois -=1;   //si il a réussi, on enlève un de bois à la case
                             }else{
-                                pris-=1;
+                                pris-=1; //s'il a pas réussi, on enlève un au nombre de planches prises
                             }
                         }
                         String strBois = String.format("%d", pris);
-                        System.out.println(strBois+" planche(s) ont été prise(s).");
+                        System.out.println(strBois+" planche(s) ont été prise(s)."); 
                     }else{
-                        int  pris = quantite;
-                        for(int i=0;i<quantite;i++){
+                        int  pris = quantite; //sinon si y'a au moins autant de bois que ce que le joueur demande
+                        for(int i=0;i<quantite;i++){ //même principe
                             SacADos sac = player.getSacADos();
                             boolean added = sac.ajouterObjet("bois");
                             if(added){
@@ -215,7 +215,7 @@ public class Case {
         
         double stat = Math.random(); //on génère un random
         
-        if(stat < 0.3){      //en fonction de la valeur pruse par le random, le nombre de zombie sur la case ne sera pas le même.
+        if(stat < 0.3){      //en fonction de la valeur prise par le random, le nombre de zombie sur la case ne sera pas le même.
             nbZombie = 0;
         }else if(stat<0.4){
             nbZombie = 1;
