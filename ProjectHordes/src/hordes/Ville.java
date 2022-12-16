@@ -113,7 +113,7 @@ public class Ville extends Case{ //Ville hérite de Case pour avoir des fonction
             switch(action){ //les différentes actions que le joueur peut faire
                 case "actionner porte":
                     this.setPorte();
-                    if(!(this.porte)){ //si la porte n'est pas ouverte
+                    if(!(this.porte)){ //si la porte n'est pas fermé
                         System.out.println("La porte a été ouverte.");
                     }else{
                         System.out.println("La porte a été fermée.");
@@ -202,7 +202,7 @@ public class Ville extends Case{ //Ville hérite de Case pour avoir des fonction
             System.out.println("Ce chantier a déjà été commencé");
         }else if ((tabChantier[index].getNbPlanche()>this.bois)||(tabChantier[index].getNbMetal()>this.metal)){ //si le nombre nécessaire de métal et de planche de bois est supérieur au nombre de planche de bois et de métal disponible
             System.out.println("Vous n'avez pas assez de ressources pour construire ce chantier");
-        }else{
+        }else{ //si le nombre de planche de bois et de métal disponible est supérieur aux nombres nécessaires à la construction
             this.bois-=tabChantier[index].getNbPlanche(); //soustration du nombre de planche de bois nécessaire au nombre de planche de bois diponible
             this.metal-=tabChantier[index].getNbMetal(); //soustraction du nombre de métal nécessiare au nombre de métal disponible
                         
