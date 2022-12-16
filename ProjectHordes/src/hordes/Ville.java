@@ -11,7 +11,7 @@ import java.util.Scanner;
  *
  * @author nomnelle
  */
-public class Ville extends Case{
+public class Ville extends Case{ //Ville hérite de Case pour avoir des fonctions en commun avec cette dernière + ses fonctions particulières
     
     private int nbZombieDefendable;
     private int minimumZombie;

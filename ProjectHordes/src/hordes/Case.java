@@ -24,14 +24,16 @@ public class Case {
         this.x = x_map;
         this.y = y_map;
         
-        if((x==12)&&(y==12)){
+        if((x==12)&&(y==12)){ //position de la ville : pas de zombie et impossible à fouiller
             this.zombie = 0;
             this.fouille = true;
-        }else{
+        }else{               // sinon on calcule un nombre de zombie aléatoire
             this.zombie = calcZombie();
             this.fouille = false;
         }
     }
+    
+    //getters
     
     public int getX(){
         return this.x;
@@ -61,6 +63,8 @@ public class Case {
         return this.zombie;
     }
     
+    //setters
+    
     public void setFouille(){
         this.fouille = true;
     }
@@ -81,36 +85,37 @@ public class Case {
         this.zombie = i;
     }
     
+    //toString 
     @Override
     public String toString(){
         
-        if(this.fouille){
+        if(this.fouille){ //si c'est fouillé, on donne les quantité des différents composants sur la case
             String strMet, strBois, strBE;
 
             strMet = String.format("%d", this.metal);
             strBois = String.format("%d", this.bois);
             strBE = String.format("%d", this.boissonEnergisante);
-            return("Il y a "+strMet+" morceaux de métal, "+strBois+" planches de bois et "+strBE+" boissons énergisantes sur cette case.");
+            return("Il y a "+strMet+" morceaux de métal, "+strBois+" planches de bois et "+strBE+" boissons énergisantes sur cette case."); 
 
-        }else{
+        }else{          //sinon on retourne un message indiquant que la case n'a pas été fouillée
             return("Cette case n'a pas encore été fouillée.");
         }
     }
     
     public void prendreObjet(Joueur player, int quantite, String objet){
-        switch(objet){
-            case "planche":
-                if(this.bois >0){
-                    if(quantite>this.bois){
-                        for(int i=0;i<this.bois;i++){
+        switch(objet){                   //pour éviter que le joueur essaye de prendre un objet qui n'existe pas dans le jeu
+            case "planche": 
+                if(this.bois >0){        //s'il reste du bois
+                    if(quantite>this.bois){    //si la quantité demandée est supérieure à la quantité actuelle de bois sur la case
+                        for(int i=0;i<this.bois;i++){   //alors le joueurs prend tout le bois qu'il peut
                             SacADos sac = player.getSacADos();
                             boolean added = sac.ajouterObjet("bois");
                             if(added){
-                                this.bois -=1;
+                                this.bois -=1;  
                             }
                         }
                     }else{
-                        for(int i=0;i<quantite;i++){
+                        for(int i=0;i<quantite;i++){   //sinon il en prends la quantité qu'il a demandé
                             SacADos sac = player.getSacADos();
                             boolean added = sac.ajouterObjet("bois");
                             if(added){
@@ -119,10 +124,10 @@ public class Case {
                         }
                     }
                 }else{
-                    System.out.println("Il n'y a plus de bois à cet endroit.");
+                    System.out.println("Il n'y a plus de bois à cet endroit."); //s'il n'y a plus de bois, alors on renvoit un message pour en informer le joueur.
                 }
                 break;
-                case "metal":
+                case "metal":     //même principe pour tous les autres composants
                     if(this.metal >0){
                         if(quantite>this.metal){
                             for(int i=0;i<this.metal;i++){
@@ -178,9 +183,9 @@ public class Case {
         
         int nbZombie;
         
-        double stat = Math.random();
+        double stat = Math.random(); //on génère un random
         
-        if(stat < 0.3){
+        if(stat < 0.3){      //en fonction de la valeur pruse par le random, le nombre de zombie sur la case ne sera pas le même.
             nbZombie = 0;
         }else if(stat<0.4){
             nbZombie = 1;
