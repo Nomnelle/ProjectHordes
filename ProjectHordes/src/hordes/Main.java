@@ -227,6 +227,7 @@ public class Main {
             }
             
             if(carte.getTour()==13){          //à la fin du 12e tour
+                carte.setTour(0);
                 for(Joueur j:listeJoueur){
                     if(j.getBu())
                         j.setBu();            //joueurs peuvent de nouveau boire s'ils avaient bu
@@ -253,24 +254,25 @@ public class Main {
                             break;
                     }
                 }
-                
-                switch(compteurMorts){                                     //en fonction du nombre de mort à ce tour, le message change
-                case 0:
-                    System.out.println("Personne n'est mort à ce tour");
-                    break;
-                case 1:
-                    journal += listeMort.get(0);
-                    journal += " est mort.e à ce tour.";
-                    System.out.println(journal);
-                    break;
-                default:
-                    String strCompteur = String.format("%d", compteurMorts);
-                    journal += (strCompteur+" personnes sont mortes à ce tour.");
-                    System.out.println(journal);
-                    break;
-                }
-                compteurMorts = 0;
             }
+                
+            switch(compteurMorts){                                     //en fonction du nombre de mort à ce tour, le message change
+            case 0:
+                System.out.println("Personne n'est mort à ce tour");
+                break;
+            case 1:
+                journal += listeMort.get(0);
+                journal += " est mort.e à ce tour.";
+                System.out.println(journal);
+                break;
+            default:
+                String strCompteur = String.format("%d", compteurMorts);
+                journal += (strCompteur+" personnes sont mortes à ce tour.");
+                System.out.println(journal);
+                break;
+            }
+            compteurMorts = 0;
+            
             
         }
         if(listeJoueur.size()==1){                                     //s'il reste un joueur en vie, il est déclaré gagnant
