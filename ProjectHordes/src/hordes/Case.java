@@ -24,14 +24,16 @@ public class Case {
         this.x = x_map;
         this.y = y_map;
         
-        if((x==12)&&(y==12)){
+        if((x==12)&&(y==12)){ //position de la ville : pas de zombie et impossible à fouiller
             this.zombie = 0;
             this.fouille = true;
-        }else{
+        }else{               // sinon on calcule un nombre de zombie aléatoire
             this.zombie = calcZombie();
             this.fouille = false;
         }
     }
+    
+    //getters
     
     public int getX(){
         return this.x;
@@ -61,6 +63,8 @@ public class Case {
         return this.zombie;
     }
     
+    //setters
+    
     public void setFouille(){
         this.fouille = true;
     }
@@ -81,65 +85,86 @@ public class Case {
         this.zombie = i;
     }
     
+    //toString 
     @Override
     public String toString(){
         
-        if(this.fouille){
+        if(this.fouille){ //si c'est fouillé, on donne les quantité des différents composants sur la case
             String strMet, strBois, strBE;
 
             strMet = String.format("%d", this.metal);
             strBois = String.format("%d", this.bois);
             strBE = String.format("%d", this.boissonEnergisante);
-            return("Il y a "+strMet+" morceaux de métal, "+strBois+" planches de bois et "+strBE+" boissons énergisantes sur cette case.");
+            return("Il y a "+strMet+" morceaux de métal, "+strBois+" planches de bois et "+strBE+" boissons énergisantes sur cette case."); 
 
-        }else{
+        }else{          //sinon on retourne un message indiquant que la case n'a pas été fouillée
             return("Cette case n'a pas encore été fouillée.");
         }
     }
     
     public void prendreObjet(Joueur player, int quantite, String objet){
-        switch(objet){
-            case "planche":
+        switch(objet){                   //pour éviter que le joueur essaye de prendre un objet qui n'existe pas dans le jeu
+            case "planche": 
                 if(this.bois >0){
-                    if(quantite>this.bois){
-                        for(int i=0;i<this.bois;i++){
+                    if(quantite>this.bois){ //s'il y a moins de bois que ce que le joueur demande
+                        int  pris = this.bois; //pour affichage
+                        for(int i=0;i<this.bois;i++){ //le joueur, s'il le peut, prendra tout le bois présent sur la case
                             SacADos sac = player.getSacADos();
-                            boolean added = sac.ajouterObjet("bois");
-                            if(added){
-                                this.bois -=1;
+                            boolean added = sac.ajouterObjet("bois"); //on vérifie si le joueur a pu prendre le bois
+                            if(added){ 
+                                this.bois -=1;   //si il a réussi, on enlève un de bois à la case
+                            }else{
+                                pris-=1; //s'il a pas réussi, on enlève un au nombre de planches prises
                             }
                         }
+                        String strBois = String.format("%d", pris);
+                        System.out.println(strBois+" planche(s) ont été prise(s)."); 
                     }else{
-                        for(int i=0;i<quantite;i++){
+                        int  pris = quantite; //sinon si y'a au moins autant de bois que ce que le joueur demande
+                        for(int i=0;i<quantite;i++){ //même principe
                             SacADos sac = player.getSacADos();
                             boolean added = sac.ajouterObjet("bois");
                             if(added){
                                 this.bois -=1;
+                            }else{
+                                pris-=1;
                             }
                         }
+                        String strBois = String.format("%d", pris);
+                        System.out.println(strBois+" planche(s) ont été prise(s).");
                     }
                 }else{
-                    System.out.println("Il n'y a plus de bois à cet endroit.");
+                    System.out.println("Il n'y a plus de bois à cet endroit."); //s'il n'y a plus de bois, alors on renvoit un message pour en informer le joueur.
                 }
                 break;
-                case "metal":
+                case "métal":     //même principe pour tous les autres composants
                     if(this.metal >0){
                         if(quantite>this.metal){
+                            int pris = this.metal;
                             for(int i=0;i<this.metal;i++){
                                 SacADos sac = player.getSacADos();
                                 boolean added = sac.ajouterObjet("métal");
                                 if(added){
                                     this.metal -=1;
+                                }else{
+                                    pris-=1;
                                 }
                             }
+                            String strMetal = String.format("%d", pris);
+                            System.out.println(strMetal+" morceau(x) de métal ont été pris.");
                         }else{
+                            int pris = quantite;
                             for(int i=0;i<quantite;i++){
                                 SacADos sac = player.getSacADos();
                                 boolean added = sac.ajouterObjet("métal");
                                 if(added){
                                     this.metal -=1;
+                                }else{
+                                    pris-=1;
                                 }
                             }
+                            String strMetal = String.format("%d", pris);
+                            System.out.println(strMetal+" morceau(x) de métal ont été pris.");
                         }
                     }else{
                         System.out.println("Il n'y a plus de métal à cet endroit.");
@@ -147,23 +172,33 @@ public class Case {
                     break;
                 case "boisson":
                     if(this.boissonEnergisante > 0){
-                        if(quantite>this.boissonEnergisante){
-                            for(int i=0;i<this.boissonEnergisante;i++){
-                                SacADos sac = player.getSacADos();
-                                boolean added = sac.ajouterObjet("boisson");
-                                if(added){
-                                    this.boissonEnergisante -=1;
-                                }
-                            }
-                        }else{
-                            for(int i=0;i<quantite;i++){
-                                SacADos sac = player.getSacADos();
-                                boolean added = sac.ajouterObjet("boisson");
-                                if(added){
-                                    this.boissonEnergisante -=1;
-                                }
+                    if(quantite>this.boissonEnergisante){
+                        int pris = quantite;
+                        for(int i=0;i<this.boissonEnergisante;i++){
+                            SacADos sac = player.getSacADos();
+                            boolean added = sac.ajouterObjet("boisson");
+                            if(added){
+                                this.boissonEnergisante -=1;
+                            }else{
+                                pris-=1;
                             }
                         }
+                        String strBoisson = String.format("%d", pris);
+                        System.out.println(strBoisson+" boisson(s) énergisante(s) ont été prise(s).");
+                    }else{
+                        int pris = quantite;
+                        for(int i=0;i<quantite;i++){
+                            SacADos sac = player.getSacADos();
+                            boolean added = sac.ajouterObjet("boisson");
+                            if(added){
+                                this.boissonEnergisante -=1;
+                            }else{
+                                pris-=1;
+                            }
+                        }
+                        String strBoisson = String.format("%d", pris);
+                        System.out.println(strBoisson+" boisson(s) énergisante(s) ont été prise(s).");
+                    }
                     }else{
                         System.out.println("Il n'y a plus de boisson énergisante à cet endroit.");
                     }
@@ -178,9 +213,9 @@ public class Case {
         
         int nbZombie;
         
-        double stat = Math.random();
+        double stat = Math.random(); //on génère un random
         
-        if(stat < 0.3){
+        if(stat < 0.3){      //en fonction de la valeur prise par le random, le nombre de zombie sur la case ne sera pas le même.
             nbZombie = 0;
         }else if(stat<0.4){
             nbZombie = 1;

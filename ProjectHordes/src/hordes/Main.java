@@ -75,7 +75,7 @@ public class Main {
                 boolean tour = true;
                 while(tour){                          //tant que c'est au tour du joueur
                     strPa = String.format("%d", joueur.getPa());
-                    System.out.println("Il vous reste"+strPa+" actions à réaliser.");
+                    System.out.println("Il vous reste "+strPa+" actions à réaliser.");
                     System.out.println("Que souhaitez-vous faire ?");
                     String action = sc.nextLine();    //on récupère les actions du joueur
 
@@ -139,7 +139,7 @@ public class Main {
                                 joueur.setPa(joueur.getPa()-1);
                                 Case place = carte.getCase(joueur.getPositionx(),joueur.getPositiony()); // Récupération de la case sur laquelle se situe le joueur
                                 place.setZombie(place.getZombie()-1);
-                                double perte = Math.random()+1;              // Une chance sur 10 de perdre des PV dans l'attaque, perte de PA quand attaque une fois
+                                double perte = Math.random();              // Une chance sur 10 de perdre des PV dans l'attaque, perte de PA quand attaque une fois
                                 if (perte<=0.9) {
                                     System.out.println("Vous vous en sortez bien.");}
                                 else{
@@ -151,8 +151,12 @@ public class Main {
                             }
                             break;
                         case "observer case":
-                            Case emplacement = carte.getCase(joueur.getPositionx(),joueur.getPositiony());
-                            System.out.println(emplacement.toString());
+                            if((joueur.getPositionx()==12)&&(joueur.getPositiony()==12)){
+                                System.out.println("C'est une très jolie ville, bien qu'un peu en ruine.");
+                            }else{
+                                Case emplacement = carte.getCase(joueur.getPositionx(),joueur.getPositiony()); //si le joueur n'est pas en ville, il peut observer la case sur laquelle il se trouve
+                                System.out.println(emplacement.toString());
+                            }
                             break;
                         case "MaJ carte":
                             carte.getVisuMap().maJ(carte.getCase(joueur.getPositionx(), joueur.getPositiony()));
@@ -161,11 +165,15 @@ public class Main {
                             System.out.println(carte.getVisuMap().toString());
                             break;
                         case "looter":
-                            System.out.println("Que souhaitez-vous prendre ?");    
-                            String objet = sc.nextLine();                             //Le joueur entre l'objet qu'il souhaite récupérer
-                            System.out.println("En quelle quantité ?");           
-                            int quantite = sc.nextInt();                              //Ainsi que la quantité qu'il souhaite récupérer
-                            carte.getCase(joueur.getPositionx(), joueur.getPositiony()).prendreObjet(joueur, quantite, objet);
+                            if((joueur.getPositionx()==12)&&(joueur.getPositiony()==12)){
+                                System.out.println("Le sol de la ville est propre.");
+                            }else{                                                        //si le joueur n'est pas en ville
+                                System.out.println("Que souhaitez-vous prendre ?");    
+                                String objet = sc.nextLine();                             //Le joueur entre l'objet qu'il souhaite récupérer
+                                System.out.println("En quelle quantité ?");           
+                                int quantite = sc.nextInt();                              //Ainsi que la quantité qu'il souhaite récupérer
+                                carte.getCase(joueur.getPositionx(), joueur.getPositiony()).prendreObjet(joueur, quantite, objet);
+                            }
                             break;
                         case "actionner porte":
                             ville.evaluerActionVille(joueur, action);
@@ -219,6 +227,7 @@ public class Main {
             }
             
             if(carte.getTour()==13){          //à la fin du 12e tour
+                carte.setTour(0);
                 for(Joueur j:listeJoueur){
                     if(j.getBu())
                         j.setBu();            //joueurs peuvent de nouveau boire s'ils avaient bu
@@ -245,24 +254,25 @@ public class Main {
                             break;
                     }
                 }
-                
-                switch(compteurMorts){                                     //en fonction du nombre de mort à ce tour, le message change
-                case 0:
-                    System.out.println("Personne n'est mort à ce tour");
-                    break;
-                case 1:
-                    journal += listeMort.get(0);
-                    journal += " est mort.e à ce tour.";
-                    System.out.println(journal);
-                    break;
-                default:
-                    String strCompteur = String.format("%d", compteurMorts);
-                    journal += (strCompteur+" personnes sont mortes à ce tour.");
-                    System.out.println(journal);
-                    break;
-                }
-                compteurMorts = 0;
             }
+                
+            switch(compteurMorts){                                     //en fonction du nombre de mort à ce tour, le message change
+            case 0:
+                System.out.println("Personne n'est mort à ce tour");
+                break;
+            case 1:
+                journal += listeMort.get(0);
+                journal += " est mort.e à ce tour.";
+                System.out.println(journal);
+                break;
+            default:
+                String strCompteur = String.format("%d", compteurMorts);
+                journal += (strCompteur+" personnes sont mortes à ce tour.");
+                System.out.println(journal);
+                break;
+            }
+            compteurMorts = 0;
+            
             
         }
         if(listeJoueur.size()==1){                                     //s'il reste un joueur en vie, il est déclaré gagnant
