@@ -10,13 +10,14 @@ package hordes;
  */
 public class Chantier {
     
-    private final String nomChantier;
-    private boolean chantierFini;
-    private int paRestant;
-    private final int nbZombieResiste;
-    private int nbPlanche;
-    private int nbMetal;
+    private final String nomChantier; //nom du chantier
+    private boolean chantierFini; //si boolean=vrai, alors le chantier est finit
+    private int paRestant; //nombre de PA 
+    private final int nbZombieResiste; //nombre de Zombie pouvant résister
+    private int nbPlanche; //nombre de planche
+    private int nbMetal; //nombre de métal
     
+    //constructeur
     public Chantier (String nomChantier, int paRestant, int nbZombieResiste, int nbPlanche, int nbMetal){
         this.nomChantier = nomChantier;
         this.paRestant = paRestant;
@@ -69,10 +70,10 @@ public class Chantier {
     }
     
     public void aiderChantier(Joueur joueur, int quantitePA, Ville ville){
-        if(this.paRestant>=quantitePA){
-            if(joueur.getPa()>=quantitePA){
+        if(this.paRestant>=quantitePA){ //si le nombre de PA restant est supérieur ou égale à la quantité de PA nécessire à la construction
+            if(joueur.getPa()>=quantitePA){ //
                     joueur.setPa(joueur.getPa()-quantitePA);
-                    this.paRestant-=quantitePA;
+                    this.paRestant-=quantitePA; //on enlève au nombre de PA, la quantité utlisé pour la construction
             }else{
                 this.paRestant-=joueur.getPa();
                 joueur.setPa(0);
@@ -85,6 +86,6 @@ public class Chantier {
         if(this.paRestant<=0){
             this.chantierFini=true;
             ville.setNbZombieDefendable(ville.getNbZombieDefendable()+this.nbZombieResiste);
-        }
+        }   
     }
 }
