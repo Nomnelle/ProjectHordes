@@ -105,46 +105,66 @@ public class Case {
     public void prendreObjet(Joueur player, int quantite, String objet){
         switch(objet){                   //pour éviter que le joueur essaye de prendre un objet qui n'existe pas dans le jeu
             case "planche": 
-                if(this.bois >0){        //s'il reste du bois
-                    if(quantite>this.bois){    //si la quantité demandée est supérieure à la quantité actuelle de bois sur la case
-                        for(int i=0;i<this.bois;i++){   //alors le joueurs prend tout le bois qu'il peut
-                            SacADos sac = player.getSacADos();
-                            boolean added = sac.ajouterObjet("bois");
-                            if(added){
-                                this.bois -=1;  
-                            }
-                        }
-                    }else{
-                        for(int i=0;i<quantite;i++){   //sinon il en prends la quantité qu'il a demandé
+                if(this.bois >0){
+                    if(quantite>this.bois){
+                        int  pris = this.bois;
+                        for(int i=0;i<this.bois;i++){
                             SacADos sac = player.getSacADos();
                             boolean added = sac.ajouterObjet("bois");
                             if(added){
                                 this.bois -=1;
+                            }else{
+                                pris-=1;
                             }
                         }
+                        String strBois = String.format("%d", pris);
+                        System.out.println(strBois+" planche(s) ont été prise(s).");
+                    }else{
+                        int  pris = quantite;
+                        for(int i=0;i<quantite;i++){
+                            SacADos sac = player.getSacADos();
+                            boolean added = sac.ajouterObjet("bois");
+                            if(added){
+                                this.bois -=1;
+                            }else{
+                                pris-=1;
+                            }
+                        }
+                        String strBois = String.format("%d", pris);
+                        System.out.println(strBois+" planche(s) ont été prise(s).");
                     }
                 }else{
                     System.out.println("Il n'y a plus de bois à cet endroit."); //s'il n'y a plus de bois, alors on renvoit un message pour en informer le joueur.
                 }
                 break;
-                case "metal":     //même principe pour tous les autres composants
+                case "métal":     //même principe pour tous les autres composants
                     if(this.metal >0){
                         if(quantite>this.metal){
+                            int pris = this.metal;
                             for(int i=0;i<this.metal;i++){
                                 SacADos sac = player.getSacADos();
                                 boolean added = sac.ajouterObjet("métal");
                                 if(added){
                                     this.metal -=1;
+                                }else{
+                                    pris-=1;
                                 }
                             }
+                            String strMetal = String.format("%d", pris);
+                            System.out.println(strMetal+" morceau(x) de métal ont été pris.");
                         }else{
+                            int pris = quantite;
                             for(int i=0;i<quantite;i++){
                                 SacADos sac = player.getSacADos();
                                 boolean added = sac.ajouterObjet("métal");
                                 if(added){
                                     this.metal -=1;
+                                }else{
+                                    pris-=1;
                                 }
                             }
+                            String strMetal = String.format("%d", pris);
+                            System.out.println(strMetal+" morceau(x) de métal ont été pris.");
                         }
                     }else{
                         System.out.println("Il n'y a plus de métal à cet endroit.");
@@ -152,23 +172,33 @@ public class Case {
                     break;
                 case "boisson":
                     if(this.boissonEnergisante > 0){
-                        if(quantite>this.boissonEnergisante){
-                            for(int i=0;i<this.boissonEnergisante;i++){
-                                SacADos sac = player.getSacADos();
-                                boolean added = sac.ajouterObjet("boisson");
-                                if(added){
-                                    this.boissonEnergisante -=1;
-                                }
-                            }
-                        }else{
-                            for(int i=0;i<quantite;i++){
-                                SacADos sac = player.getSacADos();
-                                boolean added = sac.ajouterObjet("boisson");
-                                if(added){
-                                    this.boissonEnergisante -=1;
-                                }
+                    if(quantite>this.boissonEnergisante){
+                        int pris = quantite;
+                        for(int i=0;i<this.boissonEnergisante;i++){
+                            SacADos sac = player.getSacADos();
+                            boolean added = sac.ajouterObjet("boisson");
+                            if(added){
+                                this.boissonEnergisante -=1;
+                            }else{
+                                pris-=1;
                             }
                         }
+                        String strBoisson = String.format("%d", pris);
+                        System.out.println(strBoisson+" boisson(s) énergisante(s) ont été prise(s).");
+                    }else{
+                        int pris = quantite;
+                        for(int i=0;i<quantite;i++){
+                            SacADos sac = player.getSacADos();
+                            boolean added = sac.ajouterObjet("boisson");
+                            if(added){
+                                this.boissonEnergisante -=1;
+                            }else{
+                                pris-=1;
+                            }
+                        }
+                        String strBoisson = String.format("%d", pris);
+                        System.out.println(strBoisson+" boisson(s) énergisante(s) ont été prise(s).");
+                    }
                     }else{
                         System.out.println("Il n'y a plus de boisson énergisante à cet endroit.");
                     }

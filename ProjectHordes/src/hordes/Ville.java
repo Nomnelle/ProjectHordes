@@ -287,7 +287,7 @@ public class Ville extends Case{ //Ville hérite de Case pour avoir des fonction
                     System.out.println("Il n'y a plus de bois dans l'entrepot.");
                 }
                 break;
-            case "metal":
+            case "métal":
                 if(this.metal >0){
                     if(quantite>this.metal){
                         int pris = this.metal;
