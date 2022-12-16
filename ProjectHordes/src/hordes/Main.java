@@ -223,6 +223,7 @@ public class Main {
                 j.setPa(j.getPa()+4);           //les joueurs récupèrent 4 PA
                 if(j.getAddiction().getTestAddiction()){
                     addiction(j);
+                    updateMorts(listeJoueur);
                 }
             }
             
@@ -242,10 +243,7 @@ public class Main {
                         }
                     }
                 }
-                 if(!(journal.equals(""))){
-                    System.out.println(journal+"sont morts car ils étaient hors de la ville.");
                         
-                }
                 if(!(ville.getPorte())||(ville.getNbZombieDefendable()<ville.genererZombie())){
                     tuerJoueur(listeJoueur);
                     updateMorts(listeJoueur);
@@ -272,6 +270,7 @@ public class Main {
                 break;
             }
             compteurMorts = 0;
+            listeMort.clear();
             
             
         }
